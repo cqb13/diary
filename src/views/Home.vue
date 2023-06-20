@@ -4,14 +4,16 @@
       class="align-center flex flex-col justify-center rounded-[60px] border border-primary p-10"
     >
       <h1
-        class="text-center font-serifs text-[20rem] tracking-tighter text-primary"
+        class="text-center font-serif text-[20rem] tracking-tighter text-primary"
       >
         DIARY
       </h1>
     </header>
     <section class="flex h-[600px] flex-col gap-2 text-dark-text">
       <div class="flex h-4/6 gap-2">
-        <div class="h-full w-4/6 rounded-[60px] rounded-tr-none bg-white p-20 flex flex-col justify-end">
+        <div
+          class="flex h-full w-4/6 flex-col justify-end rounded-[60px] rounded-tr-none bg-white p-20"
+        >
           <hr class="h-0.5 w-1/5 border-0 bg-dark-text" />
           <p class="text-xl">
             Unleash your inner thoughts and emotions in a secure and private
@@ -45,13 +47,13 @@
   </hero>
   <main class="mt-40">
     <section
-      class="grid-auto-rows-min-content min-h-min-content relative grid w-full max-w-[1000px] flex-auto grid-cols-2 justify-center gap-5 overflow-visible px-0 py-0"
+      class="grid-auto-rows-min-content min-h-min-content relative grid w-full max-w-[1000px] flex-auto grid-cols-2 justify-center gap-5 overflow-visible p-0"
     >
       <div
         class="min-h-min-content z-1 relative col-span-2 flex w-full flex-auto transform flex-col items-start gap-10 self-center overflow-hidden rounded-[40px] bg-light-background p-10"
       >
         <div>
-          <h3 class="font-serifs text-4xl text-primary">Secure</h3>
+          <h3 class="font-serif text-4xl text-primary">Secure</h3>
           <p>Your privacy is our priority</p>
         </div>
         <img
@@ -62,7 +64,7 @@
       </div>
       <div class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10">
         <div>
-          <h3 class="font-serifs text-4xl text-primary">Customizable</h3>
+          <h3 class="font-serif text-4xl text-primary">Customizable</h3>
           <p>Personalize your diary</p>
         </div>
         <img
@@ -73,7 +75,7 @@
       </div>
       <div class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10">
         <div>
-          <h3 class="font-serifs text-4xl text-primary">Accessible</h3>
+          <h3 class="font-serif text-4xl text-primary">Accessible</h3>
           <p>Access anytime, anywhere</p>
         </div>
         <img
@@ -83,10 +85,38 @@
         />
       </div>
     </section>
-    <section>
-      
+    <section class="flex flex-col items-center gap-10 p-40 text-center">
+      <h1 class="font-serif text-5xl text-primary">Embrace Self-Reflection</h1>
+      <p class="w-5/6 text-primary">
+        Why wait for tomorrow? Start your self-discovery journey today using our
+        intuitive online platform! Click the button below to sign up.
+      </p>
+      <router-link
+        to="/register"
+        class="rounded-lg bg-black p-2 tracking-wide transition-all hover:text-primary active:tracking-widest"
+        >Join Now</router-link
+      >
     </section>
     <section></section>
-    <section></section>
+    <section>
+      <h1 class="font-serif text-5xl mb-10">Common Questions</h1>
+      <div class="flex gap-20">
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Is my diary content secure and private?</h3>
+          <p>
+            Absolutely! At My Online Diary, we implement state-of-the-art
+            security measures to protect your content, ensuring complete privacy
+            and confidentiality.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Can I access my diary on multiple devices?</h3>
+          <p>
+            Yes! My Online Diary is accessible across devices to provide
+            flexibility in recording your thoughts anytime, anywhere.
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
