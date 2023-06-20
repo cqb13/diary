@@ -18,8 +18,7 @@ import { onBeforeUnmount } from "vue";
 const router = useRouter();
 const authListener = onAuthStateChanged(getAuth(), function (user) {
   if (!user) {
-    alert("you must be logged in to view this. redirecting to the home page");
-    router.push("/");
+    router.back();
   }
 });
 
