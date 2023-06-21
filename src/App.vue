@@ -1,12 +1,12 @@
 <template>
-  <div class="flex min-h-screen flex-col bg-background text-gray-200 p-20 gap-5">
-    <nav class="flex justify-between items-center gap-2">
+  <div
+    class="flex min-h-screen flex-col gap-5 bg-background p-20 text-gray-200 max-sm:p-10 max-xs:p-5"
+  >
+    <nav class="flex items-center justify-between gap-2 max-xs:flex-col">
       <p class="p-1 text-primary">My Online Diary</p>
 
       <div class="flex items-center gap-2">
-        <router-link to="/" class="rounded p-1 text-primary"
-          >Home</router-link
-        >
+        <router-link to="/" class="rounded p-1 text-primary">Home</router-link>
         <router-link
           v-if="isLoggedIn"
           to="/diary"
@@ -34,16 +34,18 @@
         >
       </div>
     </nav>
-    <div class="flex-1 px-3 w-9/12 m-auto">
+    <div class="m-auto w-9/12 flex-1 px-3 max-mdl:w-full">
       <router-view />
     </div>
-    <footer class="shrink-0">
-      <p>footer</p>
+    <footer class="mt-40 shrink-0 max-mds:mt-20">
+      <p class="text-center">© 2023 My Online Diary</p>
     </footer>
   </div>
 </template>
 
 <script setup>
+import Logo from "./components/Logo.vue";
+
 import { ref, watchEffect } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useRouter } from "vue-router";

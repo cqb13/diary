@@ -1,9 +1,34 @@
 <template>
-  <h1>Create an Account</h1>
-  <p><input type="text" placeholder="Email" v-model="email" /></p>
-  <p><input type="password" placeholder="Password" v-model="password" /></p>
-  <p><input type="password" placeholder="Confirm Password" v-model="passwordConfirm" /></p>
-  <p><button @click="register">Submit</button></p>
+  <h1 class="mb-5 text-center font-serif text-5xl text-primary">
+    Create an Account
+  </h1>
+  <section class="flex flex-col gap-5">
+    <input
+      type="text"
+      placeholder="Email"
+      class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
+      v-model="email"
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
+      v-model="password"
+    />
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
+      v-model="passwordConfirm"
+    />
+    <button
+      @click="register"
+      class="mx-auto w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
+    >
+      Sign Up
+    </button>
+    <p v-if="errorMessage" class="text-red-500 text-center">{{ errorMessage }}</p>
+  </section>
 </template>
 
 <script setup>
@@ -13,34 +38,46 @@ import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const errorMessage = ref("");
 const passwordConfirm = ref("");
 
 const router = useRouter();
+
+const updateErrorMessage = (error) => {
+  errorMessage.value = error;
+  setTimeout(() => {
+    errorMessage.value = "";
+  }, 3000);
+};
+
 const register = () => {
-  if (email.value === "" || password.value === "" || passwordConfirm.value === "") {
-    alert("Please fill out all fields!");
+  if (
+    email.value === "" ||
+    password.value === "" ||
+    passwordConfirm.value === ""
+  ) {
+    updateErrorMessage("Please fill in all fields!");
     return;
   }
 
   const emailRegex = /\S+@\S+\.\S+/;
   if (!emailRegex.test(email.value)) {
-    alert("Please enter a valid email!");
+    updateErrorMessage("Please enter a valid email!");
     return;
   }
 
   if (password.value !== passwordConfirm.value) {
-    alert("Passwords do not match!");
+    updateErrorMessage("Passwords do not match!");
     return;
   }
 
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
-      console.log("Successfully registered!");
       router.push("/diary");
     })
     .catch((error) => {
       console.log(error.code);
-      alert(error.message);
+      updateErrorMessage(error.message);
     });
 };
 </script>
