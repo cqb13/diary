@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 import "./style.css";
 
 const firebaseConfig = {
@@ -20,6 +21,7 @@ let init = initializeApp(firebaseConfig);
 getAnalytics(init);
 
 const app = createApp(App);
+export const db = getFirestore(init);
 
 app.use(router);
 

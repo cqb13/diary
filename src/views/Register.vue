@@ -4,7 +4,7 @@
   </h1>
   <section class="flex flex-col gap-5">
     <input
-      type="text"
+      type="email"
       placeholder="Email"
       class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
       v-model="email"
@@ -21,19 +21,31 @@
       class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
       v-model="passwordConfirm"
     />
-    <button
-      @click="register"
-      class="mx-auto w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
-    >
-      Sign Up
-    </button>
-    <p v-if="errorMessage" class="text-red-500 text-center">{{ errorMessage }}</p>
+    <div class="flex justify-center gap-2">
+      <button
+        @click="signUpWithEmail"
+        class="w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
+      >
+        Sign Up
+      </button>
+      <button
+        @click="signUpWithGoogle"
+        class="w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
+      >
+        Sign Up With Google
+      </button>
+    </div>
+    <p v-if="errorMessage" class="text-center text-red-500">
+      {{ errorMessage }}
+    </p>
   </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import signInWithGoogle from "../utils/account/googleSignIn";
+import signInWithEmail from "../utils/account/emailSignIn";
+import setupUserDb from "../utils/account/setupUserDb";
 import { useRouter } from "vue-router";
 
 const email = ref("");
@@ -50,7 +62,15 @@ const updateErrorMessage = (error) => {
   }, 3000);
 };
 
-const register = () => {
+const signUpWithGoogle = async () => {
+  const user = await signInWithGoogle();
+  if (user) {
+    await setupUserDb(user);
+    router.push("/diary");
+  }
+};
+
+const signUpWithEmail = async () => {
   if (
     email.value === "" ||
     password.value === "" ||
@@ -71,13 +91,12 @@ const register = () => {
     return;
   }
 
-  createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then((data) => {
-      router.push("/diary");
-    })
-    .catch((error) => {
-      console.log(error.code);
-      updateErrorMessage(error.message);
-    });
+  const result = await signInWithEmail(email.value, password.value);
+  if (result[0] === "success") {
+    await setupUserDb(result[1]);
+    router.push("/diary");
+  } else {
+    updateErrorMessage(result[1]);
+  }
 };
 </script>
