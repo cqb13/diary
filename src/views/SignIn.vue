@@ -1,14 +1,44 @@
 <template>
-  <h1>Login to Your Account</h1>
-  <p><input type="text" placeholder="Email" v-model="email" /></p>
-  <p><input type="password" placeholder="Password" v-model="password" /></p>
-  <p v-if="errMsg">{{ errMsg }}</p>
-  <p><button @click="signIn">Submit</button></p>
+  <h1 class="mb-5 text-center font-serif text-5xl text-primary">
+    Login
+  </h1>
+  <section class="flex flex-col gap-5">
+    <input
+      type="email"
+      placeholder="Email"
+      class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
+      v-model="email"
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      class="rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary"
+      v-model="password"
+    />
+    <div class="flex justify-center gap-2">
+      <button
+        @click="signUpWithEmail"
+        class="w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
+      >
+        Login
+      </button>
+      <button
+        @click="googleSingIn"
+        class="w-2/6 rounded-lg bg-black p-3 text-lg tracking-wide transition-all hover:text-primary active:tracking-widest max-sm:w-full"
+      >
+        Login With Google
+      </button>
+    </div>
+    <p v-if="errorMessage" class="text-center text-red-500">
+      {{ errorMessage }}
+    </p>
+  </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import signInWithGoogle from "../utils/account/googleSignIn";
 import { useRouter } from "vue-router";
 
 const email = ref("");
@@ -22,6 +52,13 @@ const LOCKOUT_DURATION = 5000;
 
 let loginAttempts = 0;
 let lockoutTimer = null;
+
+const googleSingIn = async () => {
+  const user = await signInWithGoogle();
+  if (user) {
+    router.push("/diary");
+  }
+}
 
 const signIn = () => {
   if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {

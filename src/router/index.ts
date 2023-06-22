@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import("../views/SignIn.vue"),
     },
     {
-      path: "/diary",
-      component: () => import("../views/Diary.vue"),
+      path: "/diaries",
+      component: () => import("../views/Diaries.vue"),
     },
     {
       path: "/:pathMatch(.*)*",

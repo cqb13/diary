@@ -9,9 +9,9 @@
         <router-link to="/" class="rounded p-1 text-primary">Home</router-link>
         <router-link
           v-if="isLoggedIn"
-          to="/diary"
+          to="/diaries"
           class="rounded p-1 text-primary"
-          >Diary</router-link
+          >Diaries</router-link
         >
         <button
           v-if="isLoggedIn"
