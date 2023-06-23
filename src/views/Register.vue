@@ -2,7 +2,7 @@
   <h1 class="mb-5 text-center font-serif text-5xl text-primary">
     Create an Account
   </h1>
-  <section class="flex flex-col gap-5">
+  <main class="flex flex-col gap-5">
     <input
       type="email"
       placeholder="Email"
@@ -38,7 +38,7 @@
     <p v-if="errorMessage" class="text-center text-red-500">
       {{ errorMessage }}
     </p>
-  </section>
+  </main>
 </template>
 
 <script setup>

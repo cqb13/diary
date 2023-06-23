@@ -14,6 +14,7 @@ const createDiaryInDb = async (name: string, description: string) => {
         await setDoc(diaryDoc, {
             name: name,
             description: description,
+            key: name + randomId,
             createdAt: new Date(),
             updatedAt: new Date(),
         });

@@ -1,9 +1,10 @@
 <template>
   <h1 class="mb-5 text-center font-serif text-5xl text-primary">Diaries</h1>
-  <section class="flex flex-wrap justify-center gap-5">
+  <main class="flex flex-wrap justify-center gap-5">
     <diaryBlock
       v-for="(diary, index) in diaries"
       :key="index"
+      :diaryKey="diary.key"
       :title="diary.name"
       :description="diary.description"
     ></diaryBlock>
@@ -29,7 +30,7 @@
         />
       </svg>
     </button>
-  </section>
+  </main>
 </template>
 
 <script setup>

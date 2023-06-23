@@ -2,7 +2,7 @@
   <h1 class="mb-5 text-center font-serif text-5xl text-primary">
     Create Diary
   </h1>
-  <section class="flex flex-col gap-5">
+  <main class="flex flex-col gap-5">
     <TextEntry placeholder="Diary Name" v-model="diaryName" />
     <TextEntry placeholder="Diary Description" v-model="diaryDescription" />
     <Checkbox label="Locked" v-model="locked" />
@@ -35,7 +35,7 @@
     <p v-if="errorMessage" class="text-center text-red-500">
       {{ errorMessage }}
     </p>
-  </section>
+  </main>
 </template>
 
 <script setup>

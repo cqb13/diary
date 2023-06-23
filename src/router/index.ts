@@ -24,6 +24,11 @@ const router = createRouter({
       component: () => import("../views/NewDiary.vue"),
     },
     {
+      path: "/diaries/:id",
+      component: () => import("../views/Diary.vue"),
+      props: true,
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("../views/NotFound.vue"),
     }

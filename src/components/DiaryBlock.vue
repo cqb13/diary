@@ -1,15 +1,28 @@
 <template>
-  <div class="h-52 w-52 max-xs:w-full bg-light-background p-5 rounded-3xl hover:outline hover:outline-primary hover:outline-1 transition-all">
-    <h2 class="text-xl font-serif text-primary text-center pb-2 tracking-wider">{{ title }}</h2>
+  <button
+    @click="goToDiary"
+    class="h-52 w-52 rounded-3xl bg-light-background p-5 transition-all hover:outline hover:outline-1 hover:outline-primary max-xs:w-full"
+  >
+    <h2 class="pb-2 text-center font-serif text-xl tracking-wider text-primary">
+      {{ title }}
+    </h2>
     <p v-if="description">{{ description }}</p>
-  </div>
+  </button>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-    description: String,
-  },
+<script setup>
+import { defineProps } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const props = defineProps({
+  title: String,
+  description: String,
+  diaryKey: String,
+});
+
+const goToDiary = () => {
+  router.push(`/diaries/${props.diaryKey}`);
 };
 </script>
