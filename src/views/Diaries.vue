@@ -1,10 +1,14 @@
 <template>
   <h1 class="mb-5 text-center font-serif text-5xl text-primary">Diaries</h1>
-  <section class="flex gap-5">
-    <DiaryBlock title="My First Entry" description="This is my first entry" />
-    <DiaryBlock title="My Second Entry" description="This is my second entry" />
-    <DiaryBlock title="My Third Entry" description="This is my third entry" />
+  <section class="flex flex-wrap justify-center gap-5">
+    <diaryBlock
+      v-for="(diary, index) in diaries"
+      :key="index"
+      :title="diary.name"
+      :description="diary.description"
+    ></diaryBlock>
     <button
+      @click="router.push('/diaries/new')"
       class="flex h-52 w-52 flex-col items-center rounded-3xl bg-light-background p-5 transition-all hover:outline hover:outline-1 hover:outline-primary"
     >
       <h2
@@ -44,14 +48,13 @@ const authListener = onAuthStateChanged(getAuth(), function (user) {
     router.back();
   }
 
-  const retrievedDiaries = getDiaries(user);
-
-  retrievedDiaries.then((data) => {
-    diaries.value = data;
-  });
-
-  console.log(diaries.value);
+  newStuff(user);
 });
+
+const newStuff = async (user) => {
+  const retrievedDiaries = await getDiaries(user);
+  diaries.value = retrievedDiaries;
+};
 
 onBeforeUnmount(() => {
   authListener();

@@ -20,6 +20,10 @@ const router = createRouter({
       component: () => import("../views/Diaries.vue"),
     },
     {
+      path: "/diaries/new",
+      component: () => import("../views/NewDiary.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("../views/NotFound.vue"),
     }

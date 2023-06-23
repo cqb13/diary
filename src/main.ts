@@ -4,6 +4,7 @@ import router from "./router";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import "./style.css";
 
 const firebaseConfig = {
@@ -22,6 +23,7 @@ getAnalytics(init);
 
 const app = createApp(App);
 export const db = getFirestore(init);
+export const auth = getAuth(init);
 
 app.use(router);
 

@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+//TODO: use new error message system
 import { ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import signInWithGoogle from "../utils/account/googleSignIn";
