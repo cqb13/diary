@@ -3,7 +3,7 @@
     :type="type"
     :placeholder="placeholder"
     :value="internalValue"
-    :class="['rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary', this.class]"
+    :class="['rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary', customClass]"
     @input="handleInput"
   />
 </template>
@@ -18,7 +18,7 @@ const props = defineProps({
   },
   placeholder: String,
   value: String,
-  class: {
+  customClass: {
     type: String,
     default: ""
   },

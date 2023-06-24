@@ -7,7 +7,7 @@
       v-else
       v-model="editedTitle"
       :value="editedTitle"
-      class="mb-2 bg-opacity-0 text-center font-serif text-5xl text-primary"
+      customClass="mb-2 bg-opacity-0 text-center font-serif text-5xl text-primary"
     />
     <p v-if="!isEditing" class="text-lg">{{ description }}</p>
     <textarea
