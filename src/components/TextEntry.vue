@@ -18,7 +18,10 @@ const props = defineProps({
   },
   placeholder: String,
   value: String,
-  class: String,
+  class: {
+    type: String,
+    default: ""
+  },
 });
 
 const internalValue = ref(props.value);

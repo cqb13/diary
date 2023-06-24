@@ -3,12 +3,16 @@
     <h1 v-if="!isEditing" class="text-center font-serif text-5xl text-primary">
       {{ title }}
     </h1>
-    <TextEntry v-else v-model="editedTitle" :value="editedTitle" class="font-serif text-5xl text-primary text-center bg-opacity-0 mb-2"/>
-
+    <TextEntry
+      v-else
+      v-model="editedTitle"
+      :value="editedTitle"
+      class="mb-2 bg-opacity-0 text-center font-serif text-5xl text-primary"
+    />
     <p v-if="!isEditing" class="text-lg">{{ description }}</p>
     <textarea
       v-else
-      class="border-none bg-background text-lg focus:ring-0 focus:outline-primary focus:outline-1 rounded-lg"
+      class="rounded-lg border-none bg-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"
       v-model="editedDescription"
     ></textarea>
 
