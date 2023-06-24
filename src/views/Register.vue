@@ -66,7 +66,7 @@ const signUpWithGoogle = async () => {
   const user = await signInWithGoogle();
   if (user) {
     await setupUserDb(user);
-    router.push("/diary");
+    router.push("/diaries");
   }
 };
 
@@ -94,7 +94,7 @@ const signUpWithEmail = async () => {
   const result = await signInWithEmail(email.value, password.value);
   if (result[0] === "success") {
     await setupUserDb(result[1]);
-    router.push("/diary");
+    router.push("/diaries");
   } else {
     updateErrorMessage(result[1]);
   }

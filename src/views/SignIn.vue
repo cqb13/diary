@@ -57,7 +57,7 @@ let lockoutTimer = null;
 const googleSingIn = async () => {
   const user = await signInWithGoogle();
   if (user) {
-    router.push("/diary");
+    router.push("/diaries");
   }
 }
 
@@ -70,7 +70,7 @@ const signIn = () => {
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
       console.log("Successfully logged in!");
-      router.push("/diary");
+      router.push("/diaries");
     })
     .catch((error) => {
       switch (error.code) {

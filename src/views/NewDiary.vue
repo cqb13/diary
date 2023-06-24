@@ -66,7 +66,7 @@ const cancelDiaryCreation = () => {
   router.back();
 };
 
-const createDiary = () => {
+const createDiary = async () => {
   if (diaryName.value === "") {
     updateErrorMessage("Diary name cannot be empty");
     return;
@@ -82,7 +82,8 @@ const createDiary = () => {
     }
   }
 
-  createDiaryInDb(diaryName.value, diaryDescription.value)
+  const key = await createDiaryInDb(diaryName.value, diaryDescription.value)
+  router.push(`/diaries/${key}`);
 };
 
 const authListener = onAuthStateChanged(getAuth(), function (user) {

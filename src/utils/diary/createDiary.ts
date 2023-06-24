@@ -19,6 +19,7 @@ const createDiaryInDb = async (name: string, description: string) => {
             updatedAt: new Date(),
         });
     }
+    return name + randomId;
 }
 
 export default createDiaryInDb;
