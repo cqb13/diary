@@ -21,7 +21,45 @@
       <p>Last Update: {{ updatedAt }}</p>
     </div>
   </header>
-  <main></main>
+
+  <main class="mt-5 rounded-xl bg-light-background p-2">
+    <article v-for="(entry, index) in entries" :key="index" :id="entry.id">
+      <section class="flex items-center justify-between p-2">
+        <div class="flex flex-col justify-center">
+          <h2 class="font-serif text-xl text-primary">{{ entry.title }}</h2>
+          <p>{{ entry.description }}</p>
+        </div>
+        <p>June 23, 2023</p>
+      </section>
+      <section class="p-2">
+        <span>{{ entry.content }}</span>
+      </section>
+    </article>
+    <button class="text-primary text-center w-full transition-all hover:opacity-50 active:tracking-wider" @click="addEntry">
+      Add Entry
+    </button>
+    <article v-if="isAddingEntry">
+      <section class="flex items-center justify-between p-2">
+        <div class="flex flex-col justify-center">
+          <input v-model="newEntriesTitle" type="text" placeholder="entry name">
+          <input v-model="newEntriesDescription" type="text" placeholder="entry desc">
+        </div>
+        <p></p>
+      </section>
+      <section class="p-2">
+        <textarea v-model="newEntriesContent" cols="30" rows="10" placeholder="entry"></textarea>
+      </section>
+      <div>
+        <button @click="saveEntry(entry)">
+          Save
+        </button>
+        <button @click="cancelEntry(index)">
+          Cancel
+        </button>
+      </div>
+    </article>
+  </main>
+
   <div class="mt-5 flex justify-between rounded-xl bg-light-background p-2">
     <button
       v-if="!isEditing"
@@ -83,6 +121,12 @@ const editedTitle = ref("");
 const editedDescription = ref("");
 const isEditing = ref(false);
 const showConfirmationModal = ref(false);
+const entries = ref([]);
+const isAddingEntry = ref(false);
+
+const newEntriesTitle = ref("");
+const newEntriesDescription = ref("");
+const newEntriesContent = ref("");
 
 const diaryKey = router.currentRoute.value.params.id;
 
@@ -93,6 +137,37 @@ const getInfo = async () => {
     createdAt.value = dateConverter(diary.createdAt);
     updatedAt.value = dateConverter(diary.updatedAt);
   });
+};
+
+//TODO: add ability to set custom date
+//!!!: last updated should also be updated
+const saveEntry = () => {
+  if (!newEntriesTitle.value || !newEntriesDescription.value || !newEntriesContent.value) {
+    return;
+  }
+
+  const id = Math.random().toString(32).substring(2);
+  
+  const newEntry = {
+    title: newEntriesTitle.value,
+    description: newEntriesDescription.value,
+    date: '', 
+    content: newEntriesContent.value,
+    id: id,
+  };
+  entries.value.push(newEntry);
+  isAddingEntry.value = false;
+  newEntriesTitle.value = "";
+  newEntriesDescription.value = "";
+  newEntriesContent.value = "";
+};
+
+const cancelEntry = () => {
+  isAddingEntry.value = false;
+};
+
+const addEntry = () => {
+  isAddingEntry.value = true;
 };
 
 const confirmDelete = () => {
