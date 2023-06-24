@@ -3,7 +3,7 @@
     :type="type"
     :placeholder="placeholder"
     :value="internalValue"
-    :class="[this.class, 'rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary']"
+    :class="['rounded-lg border-none bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary', this.class]"
     @input="handleInput"
   />
 </template>
