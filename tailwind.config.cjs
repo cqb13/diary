@@ -38,7 +38,7 @@ module.exports = {
         primary: "#F5CB5C",
         "dark-text": "#242423",
         "light-text": "#E8EDDF",
-        background: "#333533",
+        "dark-background": "#333533",
         "light-background": "#404240",
       },
     },

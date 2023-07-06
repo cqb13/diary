@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex min-h-screen flex-col gap-5 bg-background p-20 text-gray-200 max-sm:p-10 max-xs:p-5"
+    class="flex min-h-screen flex-col gap-5 bg-dark-background p-20 text-gray-200 max-sm:p-10 max-xs:p-5"
   >
     <nav class="flex items-center justify-between gap-2 max-xs:flex-col">
       <p class="p-1 text-primary">My Online Diary</p>

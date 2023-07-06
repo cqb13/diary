@@ -17,6 +17,7 @@ const createDiaryInDb = async (name: string, description: string) => {
             key: name + randomId,
             createdAt: new Date(),
             updatedAt: new Date(),
+            diaryContent: [],
         });
     }
     return name + randomId;

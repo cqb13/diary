@@ -12,7 +12,7 @@
     <p v-if="!isEditing" class="text-lg">{{ description }}</p>
     <textarea
       v-else
-      class="rounded-lg border-none bg-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"
+      class="rounded-lg border-none bg-dark-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"
       v-model="editedDescription"
     ></textarea>
 
@@ -23,18 +23,7 @@
   </header>
 
   <main class="mt-5 rounded-xl bg-light-background p-2">
-    <article v-for="(entry, index) in entries" :key="index" :id="entry.id">
-      <section class="flex items-center justify-between p-2">
-        <div class="flex flex-col justify-center">
-          <h2 class="font-serif text-xl text-primary">{{ entry.title }}</h2>
-          <p>{{ entry.description }}</p>
-        </div>
-        <p>June 23, 2023</p>
-      </section>
-      <section class="p-2">
-        <span>{{ entry.content }}</span>
-      </section>
-    </article>
+    <DiaryEntry v-for="(entry, index) in entries" :title="entry.title" :description="entry.description" :content="entry.content" :id="index" :key="index"/>
     <button class="text-primary text-center w-full transition-all hover:opacity-50 active:tracking-wider" @click="addEntry">
       Add Entry
     </button>
@@ -106,13 +95,13 @@ import { defineProps, ref } from "vue";
 import { useRouter } from "vue-router";
 import getDiary from "../utils/diary/getDiary";
 import TextEntry from "../components/TextEntry.vue";
+import DiaryEntry from "../components/DiaryEntry.vue";
 import dateConverter from "../utils/db/dateConverter";
 import saveMainDiaryChanges from "../utils/diary/saveMainDiaryChanges";
 import deleteDiary from "../utils/diary/deleteDiary";
 import Modal from "../components/Modal.vue";
 
 const router = useRouter();
-
 const title = ref("");
 const description = ref("");
 const createdAt = ref("");
@@ -136,6 +125,7 @@ const getInfo = async () => {
     description.value = diary.description;
     createdAt.value = dateConverter(diary.createdAt);
     updatedAt.value = dateConverter(diary.updatedAt);
+    entries.value = diary.diaryContent;
   });
 };
 
@@ -151,7 +141,8 @@ const saveEntry = () => {
   const newEntry = {
     title: newEntriesTitle.value,
     description: newEntriesDescription.value,
-    date: '', 
+    date: new Date(),
+    lastUpdated: new Date(),
     content: newEntriesContent.value,
     id: id,
   };

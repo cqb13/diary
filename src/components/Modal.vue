@@ -3,7 +3,7 @@
     v-if="show"
     class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
   >
-    <div class="rounded-md bg-background p-5">
+    <div class="rounded-md bg-dark-background p-5">
       <h3 class="text-lg text-primary font-medium">{{ title }}</h3>
       <p>{{ message }}</p>
       <TextEntry
