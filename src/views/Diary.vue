@@ -118,14 +118,15 @@
 
 <script setup>
 import saveMainDiaryChanges from "../utils/diary/saveMainDiaryChanges";
+import updateDiaryEntry from "../utils/diary/updateDiaryEntry";
 import DiaryEntry from "../components/DiaryEntry.vue";
 import dateConverter from "../utils/db/dateConverter";
 import deleteDiary from "../utils/diary/deleteDiary";
 import TextEntry from "../components/TextEntry.vue";
 import getDiary from "../utils/diary/getDiary";
 import Modal from "../components/Modal.vue";
-import { defineProps, ref } from "vue";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const showConfirmationModal = ref(false);
 const deleteConfirmationInput = ref("");
@@ -182,6 +183,7 @@ const saveEntry = () => {
     id: id,
   };
   entries.value.push(newEntry);
+  updateDiaryEntry(diaryKey, entries.value)
   isAddingEntry.value = false;
   newEntriesTitle.value = "";
   newEntriesDescription.value = "";

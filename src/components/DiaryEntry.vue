@@ -41,6 +41,12 @@
           >
             Cancel
           </button>
+          <button
+            class="text-red-500 transition-all hover:opacity-50 active:tracking-wider"
+            @click="deleteEntry"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </section>
@@ -56,6 +62,7 @@
 </template>
 
 <script setup>
+//!!!: This still needs to update the diary entry in the db
 import timestampToDate from "../utils/db/timestampToDate.ts";
 import TextEntry from "./TextEntry.vue";
 import { defineProps, ref } from "vue";
@@ -85,6 +92,10 @@ const saveChanges = () => {
 
 const cancelEditing = () => {
   editingDiaryEntry.value = false;
+};
+
+const deleteEntry = () => {
+  console.log("delete");
 };
 
 const props = defineProps({
