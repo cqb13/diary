@@ -1,7 +1,5 @@
 <template>
-  <h1 class="mb-5 text-center font-serif text-5xl text-primary">
-    Login
-  </h1>
+  <h1 class="mb-5 text-center font-serif text-5xl text-primary">Login</h1>
   <main class="flex flex-col gap-5">
     <input
       type="email"
@@ -36,11 +34,10 @@
 </template>
 
 <script setup>
-//TODO: use new error message system
-import { ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import signInWithGoogle from "../utils/account/googleSignIn";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const email = ref("");
 const password = ref("");
@@ -59,7 +56,7 @@ const googleSingIn = async () => {
   if (user) {
     router.push("/diaries");
   }
-}
+};
 
 const signIn = () => {
   if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {

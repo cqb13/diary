@@ -34,11 +34,11 @@
 </template>
 
 <script setup>
-import DiaryBlock from "../components/DiaryBlock.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import DiaryBlock from "../components/DiaryBlock.vue";
+import getDiaries from "../utils/diary/getDiaries";
 import { useRouter } from "vue-router";
 import { onBeforeUnmount } from "vue";
-import getDiaries from "../utils/diary/getDiaries";
 import { ref } from "vue";
 
 const diaries = ref([]);

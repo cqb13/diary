@@ -42,11 +42,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import signInWithGoogle from "../utils/account/googleSignIn";
 import signInWithEmail from "../utils/account/emailSignIn";
 import setupUserDb from "../utils/account/setupUserDb";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const email = ref("");
 const password = ref("");

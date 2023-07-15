@@ -14,7 +14,7 @@
         <div
           class="flex h-full w-4/6 flex-col justify-end rounded-[60px] rounded-tr-none bg-white p-20 max-md:justify-center max-sm:w-full max-sm:rounded-tr-[60px]"
         >
-          <hr class="h-0.5 w-1/5 border-0 bg-dark-text max-md:hidden"/>
+          <hr class="h-0.5 w-1/5 border-0 bg-dark-text max-md:hidden" />
           <p class="text-xl">
             Unleash your inner thoughts and emotions in a secure and private
             space, tailored just for you. Welcome to to My Online Diary, where
@@ -62,18 +62,22 @@
           class="pointer-events-none block h-80 w-full rounded-lg object-cover object-center grayscale rendering-auto max-mds:h-52"
         />
       </div>
-      <div class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2">
+      <div
+        class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2"
+      >
         <div>
           <h3 class="font-serif text-4xl text-primary">Customizable</h3>
           <p>Personalize your diary</p>
         </div>
         <img
-          src="../assets/aesthetic-img-4.jpg" 
+          src="../assets/aesthetic-img-4.jpg"
           alt="aesthetic img 4"
           class="pointer-events-none block h-52 w-full rounded-lg rounded-tl-[40px] object-cover object-center grayscale rendering-auto max-mds:rounded-tl-lg"
         />
       </div>
-      <div class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2">
+      <div
+        class="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2"
+      >
         <div>
           <h3 class="font-serif text-4xl text-primary">Accessible</h3>
           <p>Access anytime, anywhere</p>
@@ -85,7 +89,9 @@
         />
       </div>
     </section>
-    <section class="flex flex-col items-center gap-10 p-40 px-20 text-center max-md:py-32 max-md:px-0">
+    <section
+      class="flex flex-col items-center gap-10 p-40 px-20 text-center max-md:px-0 max-md:py-32"
+    >
       <h1 class="font-serif text-5xl text-primary">Embrace Self-Reflection</h1>
       <p class="w-5/6 text-primary">
         Why wait for tomorrow? Start your self-discovery journey today using our

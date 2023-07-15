@@ -4,7 +4,7 @@
     class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
   >
     <div class="rounded-md bg-dark-background p-5">
-      <h3 class="text-lg text-primary font-medium">{{ title }}</h3>
+      <h3 class="text-lg font-medium text-primary">{{ title }}</h3>
       <p>{{ message }}</p>
       <TextEntry
         v-model="inputValue"
@@ -32,8 +32,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
 import TextEntry from "./TextEntry.vue";
+import { ref, defineEmits } from "vue";
 
 const props = defineProps({
   show: {
@@ -63,7 +63,7 @@ const props = defineProps({
   confirmButtonText: {
     type: String,
     default: "Confirm",
-  }
+  },
 });
 
 const inputValue = ref("");

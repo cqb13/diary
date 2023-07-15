@@ -39,19 +39,19 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import TextEntry from "../components/TextEntry.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import createDiaryInDb from "../utils/diary/createDiary";
+import TextEntry from "../components/TextEntry.vue";
 import Checkbox from "../components/Checkbox.vue";
 import { ref, onBeforeUnmount } from "vue";
-import createDiaryInDb from "../utils/diary/createDiary";
+import { useRouter } from "vue-router";
 
-const diaryName = ref("");
-const diaryDescription = ref("");
-const locked = ref(false);
-const diaryPassword = ref("");
 const diaryPasswordConfirm = ref("");
+const diaryDescription = ref("");
+const diaryPassword = ref("");
 const errorMessage = ref("");
+const diaryName = ref("");
+const locked = ref(false);
 
 const router = useRouter();
 
@@ -82,7 +82,7 @@ const createDiary = async () => {
     }
   }
 
-  const key = await createDiaryInDb(diaryName.value, diaryDescription.value)
+  const key = await createDiaryInDb(diaryName.value, diaryDescription.value);
   router.push(`/diaries/${key}`);
 };
 

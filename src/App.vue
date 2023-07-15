@@ -44,10 +44,9 @@
 </template>
 
 <script setup>
-import Logo from "./components/Logo.vue";
-
-import { ref, watchEffect } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import Logo from "./components/Logo.vue";
+import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

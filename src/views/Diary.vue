@@ -23,28 +23,54 @@
   </header>
 
   <main class="mt-5 rounded-xl bg-light-background p-2">
-    <DiaryEntry v-for="(entry, index) in entries" :title="entry.title" :description="entry.description" :content="entry.content" :id="index" :key="index"/>
-    <button class="text-primary text-center w-full transition-all hover:opacity-50 active:tracking-wider" @click="addEntry">
+    <DiaryEntry
+      v-for="(entry, index) in entries"
+      :title="entry.title"
+      :description="entry.description"
+      :content="entry.content"
+      :date="entry.date"
+      :id="index"
+      :key="index"
+    />
+    <button
+      class="w-full text-center text-primary transition-all hover:opacity-50 active:tracking-wider"
+      @click="addEntry"
+    >
       Add Entry
     </button>
     <article v-if="isAddingEntry">
       <section class="flex items-center justify-between p-2">
-        <div class="flex flex-col justify-center">
-          <input v-model="newEntriesTitle" type="text" placeholder="entry name">
-          <input v-model="newEntriesDescription" type="text" placeholder="entry desc">
+        <div class="flex w-full flex-col justify-center gap-1">
+          <TextEntry
+            placeholder="Entry Name"
+            v-model="newEntriesTitle"
+            custom-class="w-full"
+          />
+          <TextEntry
+            placeholder="Entry Description"
+            v-model="newEntriesDescription"
+            custom-class="w-full"
+          />
         </div>
-        <p></p>
+        <div>
+          <input
+            type="date"
+            v-model="newEntriesDate"
+            class="rounded-lg border-none bg-dark-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"
+          />
+        </div>
       </section>
       <section class="p-2">
-        <textarea v-model="newEntriesContent" cols="30" rows="10" placeholder="entry"></textarea>
+        <textarea
+          v-model="newEntriesContent"
+          cols="30"
+          rows="10"
+          placeholder="entry"
+        ></textarea>
       </section>
       <div>
-        <button @click="saveEntry(entry)">
-          Save
-        </button>
-        <button @click="cancelEntry(index)">
-          Cancel
-        </button>
+        <button @click="saveEntry()">Save</button>
+        <button @click="cancelEntry()">Cancel</button>
       </div>
     </article>
   </main>
@@ -91,31 +117,33 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
-import { useRouter } from "vue-router";
-import getDiary from "../utils/diary/getDiary";
-import TextEntry from "../components/TextEntry.vue";
+import saveMainDiaryChanges from "../utils/diary/saveMainDiaryChanges";
 import DiaryEntry from "../components/DiaryEntry.vue";
 import dateConverter from "../utils/db/dateConverter";
-import saveMainDiaryChanges from "../utils/diary/saveMainDiaryChanges";
 import deleteDiary from "../utils/diary/deleteDiary";
+import TextEntry from "../components/TextEntry.vue";
+import getDiary from "../utils/diary/getDiary";
 import Modal from "../components/Modal.vue";
+import { defineProps, ref } from "vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter();
-const title = ref("");
+const showConfirmationModal = ref(false);
+const deleteConfirmationInput = ref("");
+const editedDescription = ref("");
+const isAddingEntry = ref(false);
+const isEditing = ref(false);
 const description = ref("");
+const editedTitle = ref("");
+const router = useRouter();
 const createdAt = ref("");
 const updatedAt = ref("");
-const editedTitle = ref("");
-const editedDescription = ref("");
-const isEditing = ref(false);
-const showConfirmationModal = ref(false);
 const entries = ref([]);
-const isAddingEntry = ref(false);
+const title = ref("");
 
-const newEntriesTitle = ref("");
 const newEntriesDescription = ref("");
 const newEntriesContent = ref("");
+const newEntriesTitle = ref("");
+const newEntriesDate = ref("");
 
 const diaryKey = router.currentRoute.value.params.id;
 
@@ -125,23 +153,30 @@ const getInfo = async () => {
     description.value = diary.description;
     createdAt.value = dateConverter(diary.createdAt);
     updatedAt.value = dateConverter(diary.updatedAt);
-    entries.value = diary.diaryContent;
+
+    if (diary.diaryContent === undefined || diary.diaryContent === null) {
+      entries.value = [];
+    } else {
+      entries.value = diary.diaryContent;
+    }
   });
 };
 
-//TODO: add ability to set custom date
-//!!!: last updated should also be updated
 const saveEntry = () => {
-  if (!newEntriesTitle.value || !newEntriesDescription.value || !newEntriesContent.value) {
+  if (
+    !newEntriesTitle.value ||
+    !newEntriesDescription.value ||
+    !newEntriesContent.value
+  ) {
     return;
   }
 
   const id = Math.random().toString(32).substring(2);
-  
+
   const newEntry = {
     title: newEntriesTitle.value,
     description: newEntriesDescription.value,
-    date: new Date(),
+    date: new Date(newEntriesDate.value).getTime(),
     lastUpdated: new Date(),
     content: newEntriesContent.value,
     id: id,
@@ -151,6 +186,7 @@ const saveEntry = () => {
   newEntriesTitle.value = "";
   newEntriesDescription.value = "";
   newEntriesContent.value = "";
+  newEntriesDate.value = "";
 };
 
 const cancelEntry = () => {
@@ -159,6 +195,7 @@ const cancelEntry = () => {
 
 const addEntry = () => {
   isAddingEntry.value = true;
+  newEntriesDate.value = new Date().toISOString().slice(0, 10);
 };
 
 const confirmDelete = () => {
