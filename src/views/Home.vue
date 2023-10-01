@@ -47,7 +47,7 @@
   </hero>
   <main class="mt-40">
     <section
-      class="grid-auto-rows-min-content min-h-min-content relative grid w-full max-w-[1000px] flex-auto grid-cols-2 justify-center gap-5 overflow-visible p-0"
+      class="grid-auto-rows-min-content min-h-min-content relative grid w-full flex-auto grid-cols-2 justify-center gap-5 overflow-visible p-0"
     >
       <div
         class="min-h-min-content z-1 relative col-span-2 flex w-full flex-auto transform flex-col items-start gap-10 self-center overflow-hidden rounded-[40px] bg-light-background p-10"
