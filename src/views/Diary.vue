@@ -126,7 +126,7 @@ import TextEntry from "../components/TextEntry.vue";
 import getDiary from "../utils/diary/getDiary";
 import Modal from "../components/Modal.vue";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 
 const showConfirmationModal = ref(false);
 const deleteConfirmationInput = ref("");
@@ -149,7 +149,12 @@ const newEntriesDate = ref("");
 const diaryKey = router.currentRoute.value.params.id;
 
 const getInfo = async () => {
-  await getDiary(diaryKey).then((diary) => {
+  if (!diaryKey.endsWith("0u")) {
+    router.push("/diaries");
+    return;
+  }
+
+  await getDiary(diaryKey.slice(0, -2)).then((diary) => {
     title.value = diary.name;
     description.value = diary.description;
     createdAt.value = dateConverter(diary.createdAt);
@@ -241,5 +246,7 @@ const cancelEditing = () => {
   isEditing.value = false;
 };
 
-getInfo();
+onBeforeMount(() => {
+  getInfo();
+});
 </script>

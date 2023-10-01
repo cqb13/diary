@@ -30,6 +30,6 @@ const goToDiary = () => {
     props.unlock(props.diaryKey, props.password);
     return;
   }
-  router.push(`/diaries/${props.diaryKey}`);
+  router.push(`/diaries/${props.diaryKey}0u`);
 };
 </script>

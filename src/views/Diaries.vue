@@ -75,7 +75,7 @@ const newStuff = async (user) => {
 };
 
 const unlock = () => {
-  router.push(`/diaries/${diaryKey.value}`);
+  router.push(`/diaries/${diaryKey.value}0u`);
 };
 
 const showUnlockModal = (futureDiaryKey, diaryPassword) => {
