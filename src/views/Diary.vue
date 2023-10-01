@@ -139,7 +139,7 @@ import TextEntry from "../components/TextEntry.vue";
 import getDiary from "../utils/diary/getDiary";
 import Modal from "../components/Modal.vue";
 import { useRouter } from "vue-router";
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 
 const showConfirmationModal = ref(false);
 const deleteConfirmationInput = ref("");
@@ -205,12 +205,10 @@ const saveEntry = () => {
     content: newEntriesContent.value,
     id: id,
   };
+
   entries.value.push(newEntry);
-  entries.value = sortDiaryEntriesByData(
-    entries.value,
-    entryOrderReverse.value,
-  );
   updateDiaryEntry(diaryKey.slice(0, -2), entries.value);
+
   isAddingEntry.value = false;
   newEntriesTitle.value = "";
   newEntriesDescription.value = "";
@@ -225,6 +223,9 @@ const cancelEntry = () => {
 const addEntry = () => {
   isAddingEntry.value = true;
   newEntriesDate.value = new Date().toISOString().slice(0, 10);
+  newEntriesTitle.value = "";
+  newEntriesDescription.value = "";
+  newEntriesContent.value = "";
 };
 
 const confirmDelete = () => {
