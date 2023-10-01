@@ -1,7 +1,12 @@
 import { collection, getDoc, setDoc, doc } from "firebase/firestore";
 import { db, auth } from "../../main";
 
-const createDiaryInDb = async (name: string, description: string) => {
+const createDiaryInDb = async (
+  name: string,
+  description: string,
+  password: string,
+  locked: boolean,
+) => {
   const user = auth.currentUser;
   if (!user) return;
   const users = collection(db, "users");
@@ -14,6 +19,8 @@ const createDiaryInDb = async (name: string, description: string) => {
     await setDoc(diaryDoc, {
       name: name,
       description: description,
+      password: password,
+      locked: locked,
       key: name + randomId,
       createdAt: new Date(),
       updatedAt: new Date(),

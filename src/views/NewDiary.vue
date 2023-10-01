@@ -82,7 +82,7 @@ const createDiary = async () => {
     }
   }
 
-  const key = await createDiaryInDb(diaryName.value, diaryDescription.value);
+  const key = await createDiaryInDb(diaryName.value, diaryDescription.value, diaryPassword.value, locked.value);
   router.push(`/diaries/${key}`);
 };
 

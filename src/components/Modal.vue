@@ -10,7 +10,7 @@
         v-model="inputValue"
         v-if="inputVisible"
         class="mt-5"
-        type="text"
+        :type="inputIsPassword ? 'password' : 'text'"
       />
       <div class="mt-4 flex justify-end">
         <button
@@ -49,6 +49,10 @@ const props = defineProps({
     required: true,
   },
   inputVisible: {
+    type: Boolean,
+    default: false,
+  },
+  inputIsPassword: {
     type: Boolean,
     default: false,
   },

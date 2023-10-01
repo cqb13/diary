@@ -20,9 +20,16 @@ const props = defineProps({
   title: String,
   description: String,
   diaryKey: String,
+  locked: Boolean,
+  password: String,
+  unlock: Function,
 });
 
 const goToDiary = () => {
+  if (props.locked) {
+    props.unlock(props.diaryKey, props.password);
+    return;
+  }
   router.push(`/diaries/${props.diaryKey}`);
 };
 </script>

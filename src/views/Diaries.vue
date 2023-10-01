@@ -7,6 +7,9 @@
       :diaryKey="diary.key"
       :title="diary.name"
       :description="diary.description"
+      :locked="diary.locked"
+      :password="diary.password"
+      :unlock="showUnlockModal"
     ></diaryBlock>
     <button
       @click="router.push('/diaries/new')"
@@ -31,17 +34,31 @@
       </svg>
     </button>
   </main>
+  <Modal
+    :show="showConfirmationModal"
+    title="Unlock Diary"
+    message="Enter the password for this diary:"
+    :inputVisible="true"
+    :inputIsPassword="true"
+    :expectedValue="password"
+    @cancel="hideConfirmationModal"
+    @confirm="unlock"
+  />
 </template>
 
 <script setup>
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import DiaryBlock from "../components/DiaryBlock.vue";
 import getDiaries from "../utils/diary/getDiaries";
+import Modal from "../components/Modal.vue";
 import { useRouter } from "vue-router";
 import { onBeforeUnmount } from "vue";
 import { ref } from "vue";
 
 const diaries = ref([]);
+const showConfirmationModal = ref(false);
+const diaryKey = ref("");
+const password = ref("");
 
 const router = useRouter();
 const authListener = onAuthStateChanged(getAuth(), function (user) {
@@ -55,6 +72,20 @@ const authListener = onAuthStateChanged(getAuth(), function (user) {
 const newStuff = async (user) => {
   const retrievedDiaries = await getDiaries(user);
   diaries.value = retrievedDiaries;
+};
+
+const unlock = () => {
+  router.push(`/diaries/${diaryKey.value}`);
+};
+
+const showUnlockModal = (futureDiaryKey, diaryPassword) => {
+  showConfirmationModal.value = true;
+  diaryKey.value = futureDiaryKey;
+  password.value = diaryPassword;
+};
+
+const hideConfirmationModal = () => {
+  showConfirmationModal.value = false;
 };
 
 onBeforeUnmount(() => {

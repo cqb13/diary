@@ -66,7 +66,6 @@ const signIn = () => {
 
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
-      console.log("Successfully logged in!");
       router.push("/diaries");
     })
     .catch((error) => {
