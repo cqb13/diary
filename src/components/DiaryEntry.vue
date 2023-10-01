@@ -43,7 +43,7 @@
           </button>
           <button
             class="text-red-500 transition-all hover:opacity-50 active:tracking-wider"
-            @click="deleteEntry"
+            @click="deleteThisEntry"
           >
             Delete
           </button>
@@ -94,16 +94,18 @@ const cancelEditing = () => {
   editingDiaryEntry.value = false;
 };
 
-const deleteEntry = () => {
-  console.log("delete");
-};
-
 const props = defineProps({
-  key: String,
-  id: String,
+  key: Number,
+  id: Number,
   title: String,
   description: String,
   date: String,
   content: String,
+  deleteEntry: Function,
 });
+
+const deleteThisEntry = () => {
+  editingDiaryEntry.value = false;
+  props.deleteEntry(props.key);
+};
 </script>

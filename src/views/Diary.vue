@@ -31,6 +31,7 @@
       :date="entry.date"
       :id="index"
       :key="index"
+      :deleteEntry="deleteEntry"
     />
     <button
       class="w-full text-center text-primary transition-all hover:opacity-50 active:tracking-wider"
@@ -261,6 +262,11 @@ const saveChanges = () => {
   description.value = editedDescription.value;
   isEditing.value = false;
   saveMainDiaryChanges(diaryKey.slice(0, -2), title.value, description.value);
+};
+
+const deleteEntry = (id) => {
+  entries.value.splice(id, 1);
+  updateDiaryEntry(diaryKey.slice(0, -2), entries.value);
 };
 
 const cancelEditing = () => {
