@@ -40,7 +40,7 @@
     </button>
     <article v-if="isAddingEntry">
       <section class="flex items-center justify-between p-2">
-        <div class="flex w-full flex-col justify-center gap-1">
+        <div class="flex w-full flex-col justify-center gap-2">
           <TextEntry
             placeholder="Entry Name"
             v-model="newEntriesTitle"
@@ -66,11 +66,22 @@
           cols="30"
           rows="10"
           placeholder="entry"
+          class="w-full rounded-lg border-none bg-dark-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"
         ></textarea>
       </section>
-      <div>
-        <button @click="saveEntry()">Save</button>
-        <button @click="cancelEntry()">Cancel</button>
+      <div class="flex gap-2">
+        <button
+          @click="saveEntry()"
+          class="text-primary transition-all hover:opacity-50 active:tracking-wider"
+        >
+          Create
+        </button>
+        <button
+          @click="cancelEntry()"
+          class="text-red-500 transition-all hover:opacity-50 active:tracking-wider"
+        >
+          Cancel
+        </button>
       </div>
     </article>
   </main>
@@ -117,6 +128,7 @@
 </template>
 
 <script setup>
+import sortDiaryEntriesByData from "../utils/diary/sortDiaryEntriesByDate";
 import saveMainDiaryChanges from "../utils/diary/saveMainDiaryChanges";
 import updateDiaryEntry from "../utils/diary/updateDiaryEntry";
 import DiaryEntry from "../components/DiaryEntry.vue";
@@ -130,6 +142,7 @@ import { ref, onBeforeMount } from "vue";
 
 const showConfirmationModal = ref(false);
 const deleteConfirmationInput = ref("");
+const entryOrderReverse = ref(false);
 const editedDescription = ref("");
 const isAddingEntry = ref(false);
 const isEditing = ref(false);
@@ -163,7 +176,11 @@ const getInfo = async () => {
     if (diary.diaryContent === undefined || diary.diaryContent === null) {
       entries.value = [];
     } else {
-      entries.value = diary.diaryContent;
+      let sortedEntries = sortDiaryEntriesByData(
+        diary.diaryContent,
+        entryOrderReverse.value,
+      );
+      entries.value = sortedEntries;
     }
   });
 };
@@ -188,7 +205,11 @@ const saveEntry = () => {
     id: id,
   };
   entries.value.push(newEntry);
-  updateDiaryEntry(diaryKey, entries.value)
+  entries.value = sortDiaryEntriesByData(
+    entries.value,
+    entryOrderReverse.value,
+  );
+  updateDiaryEntry(diaryKey.slice(0, -2), entries.value);
   isAddingEntry.value = false;
   newEntriesTitle.value = "";
   newEntriesDescription.value = "";
@@ -217,7 +238,7 @@ const cancelDelete = () => {
 const deleteDiaryCheck = async (inputValue) => {
   if (inputValue === title.value) {
     showConfirmationModal.value = false;
-    await deleteDiary(diaryKey);
+    await deleteDiary(diaryKey.slice(0, -2));
     router.push("/diaries");
   }
 };
@@ -239,7 +260,7 @@ const saveChanges = () => {
   title.value = editedTitle.value;
   description.value = editedDescription.value;
   isEditing.value = false;
-  saveMainDiaryChanges(diaryKey, title.value, description.value);
+  saveMainDiaryChanges(diaryKey.slice(0, -2), title.value, description.value);
 };
 
 const cancelEditing = () => {
