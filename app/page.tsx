@@ -1,113 +1,143 @@
-import Image from 'next/image'
+import Image from "next/image";
+import LinkToRegister from "@/components/home/linkToRegister";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+      <section className="flex flex-1 flex-col gap-5">
+        <header className="flex scale-100 flex-col justify-center rounded-[60px] border border-primary p-10">
+          <h1 className="scale-y-150 text-center font-serif text-15xl uppercase tracking-tighter text-primary max-xl:text-12xl max-xml:p-14 max-xml:text-10xl max-lg:p-5 max-mdl:p-0 max-mdl:text-9xl max-xsl:text-8xl max-xs:text-7xl">
+            diary
+          </h1>
+        </header>
+        <section className="flex h-[600px] flex-col gap-2 text-dark-text">
+          <div className="flex h-4/6 gap-2 max-sm:flex-col">
+            <div className="flex h-full w-4/6 flex-col justify-end rounded-[60px] rounded-tr-none bg-white p-20 max-md:justify-center max-sm:w-full max-sm:rounded-tr-[60px]">
+              <hr className="h-0.5 w-1/5 border-0 bg-dark-text max-md:hidden" />
+              <p className="text-xl">
+                Unleash your inner thoughts and emotions in a secure and private
+                space, tailored just for you. Welcome to to My Online Diary,
+                where self-reflection and self-discovery flourish.
+              </p>
+            </div>
+            <div className="w-2/6 max-sm:hidden">
+              <Image
+                src="/images/aesthetic-img-1.jpg"
+                alt="aesthetic img 1"
+                width={200}
+                height={200}
+                className="object-fit h-full w-full rounded-[200px] rounded-br-none rounded-tl-none grayscale rendering-auto"
+              />
+            </div>
+          </div>
+          <div className="flex h-2/6 gap-2">
+            <div className="w-2/6 max-sm:w-4/6">
+              <Image
+                src="/images/aesthetic-img-2.jpg"
+                alt="aesthetic img 2"
+                width={200}
+                height={200}
+                className="object-fit h-full w-full rounded-[60px] rounded-bl-none object-center grayscale"
+              />
+            </div>
+            <div className="flex w-4/6 items-center justify-center rounded-[60px] bg-white max-sm:w-2/6">
+              <Image
+                src="/icons/star.svg"
+                alt="star"
+                width={200}
+                height={200}
+                className="h-1/2 w-1/2"
+              />
+            </div>
+          </div>
+        </section>
+      </section>
+      <section className="mt-40">
+      <section
+      className="grid-auto-rows-min-content min-h-min-content relative grid w-full flex-auto grid-cols-2 justify-center gap-5 overflow-visible p-0"
+    >
+      <div
+        className="min-h-min-content z-1 relative col-span-2 flex w-full flex-auto transform flex-col items-start gap-10 self-center overflow-hidden rounded-[40px] bg-light-background p-10"
+      >
+        <div>
+          <h3 className="font-serif text-4xl text-primary">Secure</h3>
+          <p>Your privacy is our priority</p>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src="/images/aesthetic-img-3.jpg"
+          alt="aesthetic img 3"
+          width={200}
+          height={200}
+          className="pointer-events-none block h-80 w-full rounded-lg object-cover object-center grayscale rendering-auto max-mds:h-52"
         />
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div
+        className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2"
+      >
+        <div>
+          <h3 className="font-serif text-4xl text-primary">Customizable</h3>
+          <p>Personalize your diary</p>
+        </div>
+        <Image
+          src="/images/aesthetic-img-4.jpg"
+          alt="aesthetic img 4"
+          width={200}
+          height={200}
+          className="pointer-events-none block h-52 w-full rounded-lg rounded-tl-[40px] object-cover object-center grayscale rendering-auto max-mds:rounded-tl-lg"
+        />
       </div>
+      <div
+        className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2"
+      >
+        <div>
+          <h3 className="font-serif text-4xl text-primary">Accessible</h3>
+          <p>Access anytime, anywhere</p>
+        </div>
+        <Image
+          src="/images/aesthetic-img-5.jpg"
+          alt="aesthetic img 5"
+          width={200}
+          height={200}
+          className="pointer-events-none block h-52 w-full rounded-lg rounded-tr-[40px] object-cover object-center grayscale rendering-auto max-mds:rounded-tr-lg"
+        />
+      </div>
+    </section>
+    <section
+      className="flex flex-col items-center gap-10 p-40 px-20 text-center max-md:px-0 max-md:py-32"
+    >
+      <h1 className="font-serif text-5xl text-primary">Embrace Self-Reflection</h1>
+      <p className="w-5/6 text-primary">
+        Why wait for tomorrow? Start your self-discovery journey today using our
+        intuitive online platform! Click the button below to sign up.
+      </p>
+      <LinkToRegister/>
+    </section>
+    <section></section>
+    <section>
+      <h1 className="mb-10 font-serif text-5xl">Common Questions</h1>
+      <div className="flex gap-20 max-sm:flex-col max-sm:gap-10">
+        <div>
+          <h3 className="mb-2 text-lg font-semibold">
+            Is my diary content secure and private?
+          </h3>
+          <p>
+            Absolutely! At My Online Diary, we implement state-of-the-art
+            security measures to protect your content, ensuring complete privacy
+            and confidentiality.
+          </p>
+        </div>
+        <div>
+          <h3 className="mb-2 text-lg font-semibold">
+            Can I access my diary on multiple devices?
+          </h3>
+          <p>
+            Yes! My Online Diary is accessible across devices to provide
+            flexibility in recording your thoughts anytime, anywhere.
+          </p>
+        </div>
+      </div>
+    </section>
+      </section>
     </main>
-  )
+  );
 }
