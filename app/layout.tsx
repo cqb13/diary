@@ -9,6 +9,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://diary.cqb13.dev"),
   title: "My Online Diary",
   description:
     "Keep track of your thoughts and feelings in your own private and secure diary.",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     "Maksim Straus",
     "cqb13",
   ],
+  category: "self-care & wellness",
   generator: "Next.js",
   applicationName: "My Online Diary",
   referrer: "origin-when-cross-origin",
@@ -35,12 +37,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  themeColor: "black",
+  manifest: "https://diary.cqb13.dev/manifest.json",
   openGraph: {
     title: "My Online Diary",
     description:
       "Keep track of your thoughts and feelings in your own private and secure diary.",
     url: "https://diary.cqb13.dev/",
-    siteName: "Archery Scoring",
+    siteName: "My Online Diary",
     images: [
       {
         url: "https://diary.cqb13.dev/icon.png",
@@ -51,6 +55,27 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+  },
+  icons: {
+    icon: "/icon.png",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": "auto",
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

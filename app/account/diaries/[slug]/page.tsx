@@ -163,8 +163,6 @@ export default function Diaries({ params }: { params: { slug: string } }) {
 
     const id = Math.random().toString(32).substring(2);
 
-    //TODO: get back to this, its for the date
-
     const entry = {
       title: newEntryTitle,
       description: newEntryDescription,
