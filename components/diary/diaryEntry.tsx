@@ -34,12 +34,12 @@ export default function DiaryEntry({
 
   const [entryTitle, setEntryTitle] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
-  const [entryDate, setEntryDate] = useState({} as number);
+  const [entryDate, setEntryDate] = useState({} as any);
   const [entryContent, setEntryContent] = useState("");
 
   const [newEntryTitle, setNewEntryTitle] = useState("");
   const [newEntryDescription, setNewEntryDescription] = useState("");
-  const [newEntryDate, setNewEntryDate] = useState({} as number);
+  const [newEntryDate, setNewEntryDate] = useState({} as any);
   const [newEntryContent, setNewEntryContent] = useState("");
 
   useEffect(() => {
@@ -51,7 +51,6 @@ export default function DiaryEntry({
 
   const updateDate = (event: any) => {
     let date = event.target.value;
-    date = new Date(date).getTime();
     setNewEntryDate(date);
   };
 
@@ -59,17 +58,18 @@ export default function DiaryEntry({
     setEditing(true);
     setNewEntryTitle(entryTitle);
     setNewEntryDescription(entryDescription);
-    setNewEntryDate(entryDate);
+    setNewEntryDate(new Date(entryDate).toISOString().slice(0, 10));
     setNewEntryContent(entryContent);
   };
 
   const saveEntry = () => {
     setEditing(false);
+
     saveEdits(
       id,
       newEntryTitle,
       newEntryDescription,
-      newEntryDate,
+      new Date(newEntryDate).getTime(),
       newEntryContent,
     );
   };

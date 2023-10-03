@@ -1,6 +1,5 @@
 "use client";
 
-//TODO: add tags, add search by tags
 import sortDiaryEntriesByDate from "@/utils/diary/sortDiaryEntriesByDate";
 import saveMainDiaryChanges from "@/utils/db/diary/saveMainDiaryChanges";
 import ConfirmationModal from "@/components/general/confirmationModal";
@@ -96,6 +95,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     }
   }, [diaryEntries]);
 
+  // fix reload to redirect to signin
   useEffect(() => {
     if (!user) router.push("/signin");
   }, [user]);
@@ -164,8 +164,6 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     const id = Math.random().toString(32).substring(2);
 
     //TODO: get back to this, its for the date
-    console.log(newEntryDate);
-    console.log(new Date(newEntryDate).getTime());
 
     const entry = {
       title: newEntryTitle,
@@ -200,6 +198,8 @@ export default function Diaries({ params }: { params: { slug: string } }) {
   ) => {
     const entry = diaryEntries[id];
 
+    let oldDate = entry.date;
+
     entry.title = title;
     entry.description = description;
     entry.date = date;
@@ -210,7 +210,19 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     newDiaryEntries[id] = entry;
 
     updateDiaryEntry(key, newDiaryEntries);
-    setDiaryEntries(newDiaryEntries);
+
+    if (oldDate != date) {
+      new Promise((resolve) => {
+        resolve(
+          sortDiaryEntriesByDate(newDiaryEntries as any[], entryOrderReversed),
+        );
+      }).then((sortedData) => {
+        setDiaryEntries(sortedData as DiaryContent[]);
+      });
+    } else {
+      setDiaryEntries(newDiaryEntries);
+    }
+
     setNotification(true);
     setNotificationTitle("Success");
     setNotificationType("success");
