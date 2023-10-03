@@ -5,6 +5,7 @@ import saveMainDiaryChanges from "@/utils/db/diary/saveMainDiaryChanges";
 import ConfirmationModal from "@/components/general/confirmationModal";
 import updateDiaryEntry from "@/utils/db/diary/updateDiaryEntry";
 import updateDiaryOrder from "@/utils/db/diary/updateDiaryOrder";
+import timestampToDate from "@/utils/db/timestampToDate";
 import Notification from "@/components/general/notification";
 import { useAuthContext } from "@/lib/context/authContext";
 import TextButton from "@/components/general/textButton";
@@ -276,13 +277,19 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     const newDiaryEntries = diaryEntries.filter((entry) => {
       switch (searchSettings.indexOf(1)) {
         case 0:
-          return entry.title.includes(searchValue);
+          return entry.title.toLowerCase().includes(searchValue.toLowerCase());
         case 1:
-          return entry.date.toString().includes(searchValue);
+          return timestampToDate(entry.date)
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
         case 2:
-          return entry.description.includes(searchValue); //!!!: switch to tags, when added
+          return entry.description
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
         case 3:
-          return entry.content.includes(searchValue);
+          return entry.content
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
       }
     });
     setUsedDiaryEntries(newDiaryEntries);
