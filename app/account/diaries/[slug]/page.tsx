@@ -58,7 +58,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
   /**
    * 1. Search by title
    * 2. Search by date
-   * 3. Search by tag
+   * 3. Search by description
    * 4. Search by content
    */
   const [searchSettings, setSearchSettings] = useState([1, 0, 0, 0]);
@@ -251,7 +251,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
         setSearchPlaceholder("Search by date");
         break;
       case 2:
-        setSearchPlaceholder("Search by tag");
+        setSearchPlaceholder("Search by description");
         break;
       case 3:
         setSearchPlaceholder("Search by content");
