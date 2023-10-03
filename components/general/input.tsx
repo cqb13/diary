@@ -24,7 +24,7 @@ export default function Input({
       case "white":
         return "";
     }
-  }
+  };
 
   return (
     <input
@@ -32,7 +32,9 @@ export default function Input({
       placeholder={placeholder}
       value={value}
       v-model={vModel ? vModel : ""}
-      className={`rounded-lg border-none w-full bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary p-2 ${textColor ? findTextColor() : ""}`}
+      className={`rounded-lg border-none w-full bg-light-background placeholder:text-primary placeholder:opacity-40 focus:ring-primary p-2 ${
+        textColor ? findTextColor() : ""
+      }`}
       onChange={(event) => updateValue(event.target.value)}
     />
   );

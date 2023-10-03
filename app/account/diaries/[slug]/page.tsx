@@ -1,22 +1,22 @@
 "use client";
 
-//TODO: add tags, and search by tags/title/date
+//TODO: add tags, add search by tags
+import sortDiaryEntriesByDate from "@/utils/diary/sortDiaryEntriesByDate";
+import saveMainDiaryChanges from "@/utils/db/diary/saveMainDiaryChanges";
+import ConfirmationModal from "@/components/general/confirmationModal";
+import updateDiaryEntry from "@/utils/db/diary/updateDiaryEntry";
+import updateDiaryOrder from "@/utils/db/diary/updateDiaryOrder";
+import Notification from "@/components/general/notification";
+import { useAuthContext } from "@/lib/context/authContext";
+import TextButton from "@/components/general/textButton";
+import deleteDiary from "@/utils/db/diary/deleteDiary";
+import DiaryEntry from "@/components/diary/diaryEntry";
+import dateConverter from "@/utils/db/dateConverter";
+import getDiary from "@/utils/db/diary/getDiary";
+import { DiaryContent } from "@lib/types/diary";
+import Input from "@/components/general/input";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/lib/context/authContext";
-import getDiary from "@/utils/db/diary/getDiary";
-import sortDiaryEntriesByDate from "@/utils/diary/sortDiaryEntriesByDate";
-import dateConverter from "@/utils/db/dateConverter";
-import { DiaryContent } from "@lib/types/diary";
-import TextButton from "@/components/general/textButton";
-import ConfirmationModal from "@/components/general/confirmationModal";
-import Notification from "@/components/general/notification";
-import deleteDiary from "@/utils/db/diary/deleteDiary";
-import saveMainDiaryChanges from "@/utils/db/diary/saveMainDiaryChanges";
-import Input from "@/components/general/input";
-import updateDiaryEntry from "@/utils/db/diary/updateDiaryEntry";
-import DiaryEntry from "@/components/diary/diaryEntry";
-import updateDiaryOrder from "@/utils/db/diary/updateDiaryOrder";
 
 export default function Diaries({ params }: { params: { slug: string } }) {
   const router = useRouter();

@@ -1,11 +1,11 @@
 "use client";
 
+import ConfirmationModal from "@/components/general/confirmationModal";
+import { useAuthContext } from "@/lib/context/authContext";
+import DiaryBlock from "@/components/diary/diaryBlock";
+import getDiaries from "@/utils/db/diary/getDiaries";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/lib/context/authContext";
-import getDiaries from "@/utils/db/diary/getDiaries";
-import ConfirmationModal from "@/components/general/confirmationModal";
-import DiaryBlock from "@/components/diary/diaryBlock";
 
 export default function Diaries() {
   const router = useRouter();

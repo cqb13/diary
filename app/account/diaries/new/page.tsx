@@ -1,13 +1,13 @@
 "use client";
 
-import { useAuthContext } from "@/lib/context/authContext";
-import { useRouter } from "next/navigation";
-import Input from "@/components/general/input";
-import Button from "@/components/general/button";
-import Checkbox from "@/components/general/checkbox";
-import { useEffect, useState } from "react";
 import Notification from "@/components/general/notification";
+import { useAuthContext } from "@/lib/context/authContext";
 import createDiary from "@/utils/db/diary/createDiary";
+import Checkbox from "@/components/general/checkbox";
+import Button from "@/components/general/button";
+import Input from "@/components/general/input";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function NewDiary() {
   const router = useRouter();
@@ -103,10 +103,7 @@ export default function NewDiary() {
           </>
         )}
         <div className="flex justify-center gap-2">
-          <Button
-            title="Create Diary"
-            onClick={handleDiaryCreation}
-          />
+          <Button title="Create Diary" onClick={handleDiaryCreation} />
           <Button
             title="Cancel"
             onClick={() => router.push("/account/diaries")}

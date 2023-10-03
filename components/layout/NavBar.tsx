@@ -16,16 +16,18 @@ export default function NavBar() {
     if (signedIn && !signedOut && user) return true;
     if (!signedIn && signedOut && !user) return true;
     return false;
-  }
+  };
 
   const handleSignOut = async () => {
     await signOutUser();
     router.push("/");
-  }
+  };
 
   return (
     <nav
-      className={`${useScroll(75) ? "shadow-bar backdrop-blur-sm sticky top-0 " : ""}
+      className={`${
+        useScroll(75) ? "shadow-bar backdrop-blur-sm sticky top-0 " : ""
+      }
         : ""} flex items-center justify-between gap-2 max-xs:flex-col z-50 transition-all px-2 rounded-b-lg`}
     >
       <p className="p-1 text-primary">My Online Diary</p>
@@ -37,7 +39,9 @@ export default function NavBar() {
             onClick={() => router.push(route.path)}
             className={`${
               pathname === route.path ? "text-highlight" : ""
-            } rounded p-1 text-primary ${findVisibility(route.signedIn, route.signedOut) ? "" : "hidden"}`}
+            } rounded p-1 text-primary ${
+              findVisibility(route.signedIn, route.signedOut) ? "" : "hidden"
+            }`}
           >
             {route.name}
           </button>

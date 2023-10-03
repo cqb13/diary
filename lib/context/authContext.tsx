@@ -4,7 +4,7 @@ import {
   useContext,
   useEffect,
   useState,
-  ReactNode
+  ReactNode,
 } from "react";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { firebase_app } from "@lib/firebase";
@@ -20,7 +20,7 @@ interface AuthContextProviderProps {
 }
 
 export function AuthContextProvider({
-  children
+  children,
 }: AuthContextProviderProps): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);

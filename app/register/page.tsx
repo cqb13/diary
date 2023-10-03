@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import createUserDoc from "@/utils/db/account/createUserDoc";
+import Notification from "@/components/general/notification";
+import { useAuthContext } from "@/lib/context/authContext";
 import googleSignIn from "@/utils/firebase/googleSignIn";
 import emailSignIn from "@/utils/firebase/emailSignIn";
-import createUserDoc from "@/utils/db/account/createUserDoc";
-import { useAuthContext } from "@/lib/context/authContext";
-import { useRouter } from "next/navigation";
-import Input from "@/components/general/input";
 import Button from "@/components/general/button";
-import Notification from "@/components/general/notification";
+import Input from "@/components/general/input";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Register() {
   const [email, setEmail] = useState("");

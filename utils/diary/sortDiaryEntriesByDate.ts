@@ -1,12 +1,10 @@
 import convertTimeStampToNumberDate from "@utils/db/convertTimestampToNumbers";
-import { DiaryContent } from "@lib/types/diary"
+import { DiaryContent } from "@lib/types/diary";
 
 export default function sortDiaryEntriesByDate(
   diaryEntries: DiaryContent[],
   reverse: boolean,
 ) {
-
-
   const sortedDiaryEntries = diaryEntries.sort((a, b) => {
     const aDate = convertTimeStampToNumberDate(a.date);
     const bDate = convertTimeStampToNumberDate(b.date);

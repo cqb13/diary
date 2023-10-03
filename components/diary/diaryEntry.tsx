@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Input from "@components/general/input";
-import TextButton from "@components/general/textButton";
 import timestampToDate from "@/utils/db/timestampToDate";
+import TextButton from "@components/general/textButton";
+import Input from "@components/general/input";
+import { useState, useEffect } from "react";
 
 type Props = {
   id: number;
@@ -11,7 +11,13 @@ type Props = {
   description: string;
   date: number;
   content: string;
-  saveEdits: (id: number, title: string, description: string, date: number, content: string) => void;
+  saveEdits: (
+    id: number,
+    title: string,
+    description: string,
+    date: number,
+    content: string,
+  ) => void;
   deleteEntry: (id: number) => void;
 };
 
@@ -59,7 +65,13 @@ export default function DiaryEntry({
 
   const saveEntry = () => {
     setEditing(false);
-    saveEdits(id, newEntryTitle, newEntryDescription, newEntryDate, newEntryContent);
+    saveEdits(
+      id,
+      newEntryTitle,
+      newEntryDescription,
+      newEntryDate,
+      newEntryContent,
+    );
   };
 
   const deleteEntryHandler = () => {
@@ -113,15 +125,15 @@ export default function DiaryEntry({
             />
           )}
           {!editing ? (
-            <TextButton
-              title="Edit"
-              color="gold"
-              onClick={enterEditor}
-            />
+            <TextButton title="Edit" color="gold" onClick={enterEditor} />
           ) : (
             <div className="flex gap-2">
               <TextButton title="Save" color="gold" onClick={saveEntry} />
-              <TextButton title="Cancel" color="red" onClick={() => setEditing(false)} />
+              <TextButton
+                title="Cancel"
+                color="red"
+                onClick={() => setEditing(false)}
+              />
               <TextButton
                 title="Delete"
                 color="red"
