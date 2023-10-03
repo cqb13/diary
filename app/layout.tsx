@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import NavBar from "@/components/layout/NavBar";
 import { Inter } from "next/font/google";
 import { AuthContextProvider } from "@/lib/context/authContext";
+import { NavigationEvents } from "@/lib/navEvents";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +32,9 @@ export default function RootLayout({
         <footer className="mt-40 shrink-0 max-mds:mt-20">
           <p className="text-center">© 2023 My Online Diary</p>
         </footer>
+        <Suspense fallback={null}>
+          <NavigationEvents />
+        </Suspense>
       </body>
     </html>
   );
