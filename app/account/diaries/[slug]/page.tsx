@@ -1,23 +1,25 @@
 "use client";
 
+import updateDiaryEncryptionStatus from "@/utils/db/diary/updateDiaryEncryptedStatus";
 import sortDiaryEntriesByDate from "@/utils/diary/sortDiaryEntriesByDate";
 import saveMainDiaryChanges from "@/utils/db/diary/saveMainDiaryChanges";
 import ConfirmationModal from "@/components/general/confirmationModal";
 import updateDiaryEntry from "@/utils/db/diary/updateDiaryEntry";
 import updateDiaryOrder from "@/utils/db/diary/updateDiaryOrder";
-import timestampToDate from "@/utils/db/timestampToDate";
 import Notification from "@/components/general/notification";
 import { useAuthContext } from "@/lib/context/authContext";
+import timestampToDate from "@/utils/db/timestampToDate";
 import TextButton from "@/components/general/textButton";
 import deleteDiary from "@/utils/db/diary/deleteDiary";
 import DiaryEntry from "@/components/diary/diaryEntry";
+import encryptEntry from "@/utils/diary/encryptEntry";
+import decryptEntry from "@/utils/diary/decryptEntry";
 import dateConverter from "@/utils/db/dateConverter";
 import getDiary from "@/utils/db/diary/getDiary";
 import { DiaryContent } from "@lib/types/diary";
 import Input from "@/components/general/input";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { set } from "firebase/database";
 
 export default function Diaries({ params }: { params: { slug: string } }) {
   const router = useRouter();
@@ -33,6 +35,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
   const [diaryDescription, setDiaryDescription] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
+  const [isEncrypted, setIsEncrypted] = useState(true);
 
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
@@ -79,6 +82,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
         setCreatedAt(dateConverter(data.createdAt));
         setUpdatedAt(dateConverter(data.updatedAt));
         setEntryOrderReversed(data.entryOrderReversed);
+        setIsEncrypted(data.encrypted);
         const reversedOrder = data.entryOrderReversed;
         new Promise((resolve) => {
           resolve(
@@ -177,7 +181,15 @@ export default function Diaries({ params }: { params: { slug: string } }) {
       id: id,
     };
 
-    const newDiaryEntries = [...diaryEntries, entry];
+    const encryptedEntry = encryptEntry(entry, key + id);
+
+    const newDiaryEntries = [...diaryEntries];
+
+    if (isEncrypted) {
+      newDiaryEntries.push(encryptedEntry);
+    } else {
+      newDiaryEntries.push(entry);
+    }
 
     updateDiaryEntry(key, newDiaryEntries);
 
@@ -209,8 +221,14 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     entry.content = content;
     entry.lastUpdated = new Date();
 
+    const encryptedEntry = encryptEntry(entry, key + entry.id);
+
     const newDiaryEntries = [...diaryEntries];
-    newDiaryEntries[id] = entry;
+    if (isEncrypted) {
+      newDiaryEntries[id] = encryptedEntry;
+    } else {
+      newDiaryEntries[id] = entry;
+    }
 
     updateDiaryEntry(key, newDiaryEntries);
 
@@ -241,6 +259,7 @@ export default function Diaries({ params }: { params: { slug: string } }) {
   const deleteDiaryEntry = (id: number) => {
     const newDiaryEntries = diaryEntries.filter((entry, index) => index !== id);
     setDiaryEntries(newDiaryEntries);
+    setUsedDiaryEntries(newDiaryEntries);
     updateDiaryEntry(key, newDiaryEntries);
   };
 
@@ -298,6 +317,32 @@ export default function Diaries({ params }: { params: { slug: string } }) {
     });
     setUsedDiaryEntries(newDiaryEntries);
   }, [searchValue, searchSettings]);
+
+  const encryptDiary = () => {
+    const normalDiary = diaryEntries;
+    const encryptedDiary = normalDiary.map((entry) => {
+      return encryptEntry(entry, key + entry.id);
+    });
+
+    updateDiaryEntry(key, encryptedDiary);
+    setDiaryEntries(encryptedDiary);
+    setUsedDiaryEntries(encryptedDiary);
+    setIsEncrypted(true);
+    updateDiaryEncryptionStatus(key, true);
+  };
+
+  const decryptDiary = () => {
+    const encryptedDiary = diaryEntries;
+    const decryptedDiary = encryptedDiary.map((entry) => {
+      return decryptEntry(entry, key + entry.id);
+    });
+
+    updateDiaryEntry(key, decryptedDiary);
+    setDiaryEntries(decryptedDiary);
+    setUsedDiaryEntries(decryptedDiary);
+    setIsEncrypted(false);
+    updateDiaryEncryptionStatus(key, false);
+  };
 
   return (
     <>
@@ -364,6 +409,26 @@ export default function Diaries({ params }: { params: { slug: string } }) {
           {moreInfo ? (
             <section>
               <p>{`Entries: ${diaryEntries.length}`}</p>
+              <section className="flex justify-between">
+                {`Encrypted: ${isEncrypted ? "Yes" : "No"}`}
+                {isEncrypted ? (
+                  <TextButton
+                    title="Decrypt"
+                    color="red"
+                    onClick={() => {
+                      decryptDiary();
+                    }}
+                  />
+                ) : (
+                  <TextButton
+                    title="Encrypt"
+                    color="gold"
+                    onClick={() => {
+                      encryptDiary();
+                    }}
+                  />
+                )}
+              </section>
             </section>
           ) : null}
         </section>
@@ -498,6 +563,8 @@ export default function Diaries({ params }: { params: { slug: string } }) {
               description={entry.description}
               date={entry.date}
               content={entry.content}
+              encrypted={isEncrypted}
+              encryptionKey={key + entry.id}
               saveEdits={(
                 id: number,
                 title: string,

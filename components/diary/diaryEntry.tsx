@@ -4,6 +4,7 @@ import timestampToDate from "@/utils/db/timestampToDate";
 import TextButton from "@components/general/textButton";
 import Input from "@components/general/input";
 import { useState, useEffect } from "react";
+import xorDecrypt from "@/utils/xorDecrypt";
 
 type Props = {
   id: number;
@@ -11,6 +12,8 @@ type Props = {
   description: string;
   date: number;
   content: string;
+  encrypted: boolean;
+  encryptionKey: string;
   saveEdits: (
     id: number,
     title: string,
@@ -27,6 +30,8 @@ export default function DiaryEntry({
   description,
   date,
   content,
+  encrypted,
+  encryptionKey,
   saveEdits,
   deleteEntry,
 }: Props) {
@@ -43,10 +48,17 @@ export default function DiaryEntry({
   const [newEntryContent, setNewEntryContent] = useState("");
 
   useEffect(() => {
-    setEntryTitle(title);
-    setEntryDescription(description);
-    setEntryDate(date);
-    setEntryContent(content);
+    if (encrypted) {
+      setEntryTitle(xorDecrypt(title, encryptionKey));
+      setEntryDescription(xorDecrypt(description, encryptionKey));
+      setEntryDate(date);
+      setEntryContent(xorDecrypt(content, encryptionKey));
+    } else {
+      setEntryTitle(title);
+      setEntryDescription(description);
+      setEntryDate(date);
+      setEntryContent(content);
+    }
   }, [title, description, date, content]);
 
   const updateDate = (event: any) => {
@@ -113,7 +125,6 @@ export default function DiaryEntry({
           )}
         </div>
         <div className="flex flex-col justify-between items-end">
-          {/*TODO: fix edit date not showing*/}
           {!editing ? (
             <p>{timestampToDate(entryDate)}</p>
           ) : (
@@ -149,6 +160,8 @@ export default function DiaryEntry({
         ) : (
           <textarea
             placeholder="Entry"
+            cols={30}
+            rows={10}
             value={newEntryContent}
             onChange={(e) => setNewEntryContent(e.target.value)}
             className="w-full rounded-lg border-none bg-light-background text-lg focus:outline-1 focus:outline-primary focus:ring-0"

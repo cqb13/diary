@@ -26,6 +26,7 @@ export default async function createDiary(
       updatedAt: new Date(),
       entryOrderReversed: false,
       diaryContent: [],
+      encrypted: true,
     });
   }
   return name + randomId;
