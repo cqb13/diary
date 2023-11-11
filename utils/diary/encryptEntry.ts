@@ -1,13 +1,11 @@
 import { DiaryContent } from "@/lib/types/diary";
-import xorEncrypt from "@utils/xorEncrypt";
+import xorEncrypt from "@/utils/security/xorEncrypt";
 
 export default function encryptObject(
   entry: DiaryContent,
   key: string,
 ) {
   const { content, description, title } = entry;
-
-  console.log(xorEncrypt(content, key));
 
   const encryptedContent = xorEncrypt(content, key);
   const encryptedDescription = xorEncrypt(description, key);

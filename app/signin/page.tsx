@@ -8,7 +8,7 @@ import googleSignIn from "@/utils/firebase/googleSignIn";
 import Button from "@/components/general/button";
 import Input from "@/components/general/input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -28,6 +28,12 @@ export default function SignIn() {
 
   const MAX_LOGIN_ATTEMPTS = 5;
   const LOCKOUT_DURATION = 5000;
+
+  useEffect(() => {
+    if (user) {
+      router.push("/account/diaries");
+    }
+  }, [user]);
 
   const signInWithGoogle = async () => {
     const user = await googleSignIn();

@@ -4,7 +4,7 @@ import timestampToDate from "@/utils/db/timestampToDate";
 import TextButton from "@components/general/textButton";
 import Input from "@components/general/input";
 import { useState, useEffect } from "react";
-import xorDecrypt from "@/utils/xorDecrypt";
+import xorDecrypt from "@/utils/security/xorDecrypt";
 
 type Props = {
   id: number;

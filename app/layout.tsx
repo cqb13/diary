@@ -1,4 +1,5 @@
 import { AuthContextProvider } from "@/lib/context/authContext";
+import { DiaryContextProvider } from "@/lib/context/diaryContext";
 import { NavigationEvents } from "@/lib/navEvents";
 import NavBar from "@/components/layout/NavBar";
 import { Inter } from "next/font/google";
@@ -91,9 +92,11 @@ export default function RootLayout({
       >
         <AuthContextProvider>
           <NavBar />
-          <div className="m-auto w-9/12 flex-1 px-3 max-mdl:w-full">
-            {children}
-          </div>
+          <DiaryContextProvider>
+            <div className="m-auto w-9/12 flex-1 px-3 max-mdl:w-full">
+              {children}
+            </div>
+          </DiaryContextProvider>
         </AuthContextProvider>
         <footer className="mt-40 shrink-0 max-mds:mt-20">
           <p className="text-center">© 2023 My Online Diary</p>

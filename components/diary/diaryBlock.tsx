@@ -2,16 +2,18 @@ type props = {
   title: string;
   description: string;
   diaryKey: string;
+  diaryId: string;
   locked: boolean;
   password: string;
-  unlock: (diaryKey: string, password: string) => void;
-  openDiary: (diaryKey: string) => void;
+  unlock: (diaryKey: string, diaryId: string, password: string) => void;
+  openDiary: (diaryKey: string, diaryId: string) => void;
 };
 
 export default function DiaryBlock({
   title,
   description,
   diaryKey,
+  diaryId,
   locked,
   password,
   unlock,
@@ -19,9 +21,9 @@ export default function DiaryBlock({
 }: props) {
   const handleSelectedDiary = () => {
     if (locked) {
-      unlock(diaryKey, password);
+      unlock(diaryKey, diaryId, password);
     } else {
-      openDiary(diaryKey);
+      openDiary(diaryKey, diaryId);
     }
   };
 

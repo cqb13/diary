@@ -21,7 +21,8 @@ export default async function createDiary(
       description: description,
       password: password,
       locked: locked,
-      key: name + randomId,
+      key: name,
+      id: randomId,
       createdAt: new Date(),
       updatedAt: new Date(),
       entryOrderReversed: false,
@@ -29,5 +30,5 @@ export default async function createDiary(
       encrypted: true,
     });
   }
-  return name + randomId;
+  return {key: name, id: randomId};
 }

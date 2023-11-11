@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, auth } from "@lib/firebase";
 
 export default async function updateDiaryEncryptionStatus(
@@ -7,15 +7,13 @@ export default async function updateDiaryEncryptionStatus(
 ) {
   const user = auth.currentUser;
   if (!user) return;
-  const users = collection(db, "users");
-  const userRef = doc(users, user.uid);
+  const userRef = doc(collection(db, "users"), user.uid);
   const diaryRef = collection(userRef, "diaries");
-  const diaryDocs = await getDocs(diaryRef);
-  const diaryDocsData = diaryDocs.docs.map((doc) => doc.data());
-  const diary = diaryDocsData.find((diary) => diary.key === key);
-  const diaryDoc = doc(diaryRef, diary?.key);
-  await updateDoc(diaryDoc, {
-    encrypted: value,
-    updatedAt: new Date(),
-  });
+  const diary = await getDoc(doc(diaryRef, key));
+  if (diary) {
+    await updateDoc(doc(diaryRef, key), {
+      encrypted: value,
+      updatedAt: new Date(),
+    });
+  }
 }

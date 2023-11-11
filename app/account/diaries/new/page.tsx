@@ -1,6 +1,7 @@
 "use client";
 
 import Notification from "@/components/general/notification";
+import { useDiaryContext } from "@/lib/context/diaryContext";
 import { useAuthContext } from "@/lib/context/authContext";
 import createDiary from "@/utils/db/diary/createDiary";
 import Checkbox from "@/components/general/checkbox";
@@ -12,6 +13,9 @@ import { useEffect, useState } from "react";
 export default function NewDiary() {
   const router = useRouter();
   const { user } = useAuthContext() as { user: any };
+  const { setCurrentDiaryId } = useDiaryContext() as {
+    setCurrentDiaryId: (newDiaryId: string | null) => void;
+  };
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +31,16 @@ export default function NewDiary() {
   const [notificationMessage, setNotificationMessage] = useState("");
 
   const handleDiaryCreation = async () => {
-    if (name === "") {
+    let usedName = name.trim();
+    if (usedName === "new") {
+      setNotification(true);
+      setNotificationTitle("Error");
+      setNotificationType("error");
+      setNotificationMessage("You cannot create a diary with the name 'new'.");
+      return;
+    }
+
+    if (usedName === "") {
       setNotification(true);
       setNotificationTitle("Error");
       setNotificationType("error");
@@ -59,8 +72,18 @@ export default function NewDiary() {
       return;
     }
 
-    const key = await createDiary(name, description, password, locked);
-    router.push(`/account/diaries/${key}`);
+    const details = await createDiary(usedName, description, password, locked);
+    if (details?.key && details?.id) {
+      setCurrentDiaryId(details.id);
+      router.push(`/account/diaries/${details.key}`);
+      return;
+    } else {
+      setNotification(true);
+      setNotificationTitle("Error");
+      setNotificationType("error");
+      setNotificationMessage("Diary could not be created.");
+      return;
+    }
   };
 
   useEffect(() => {

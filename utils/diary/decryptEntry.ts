@@ -1,5 +1,5 @@
 import { DiaryContent } from "@/lib/types/diary";
-import xorDecrypt from "@utils/xorDecrypt";
+import xorDecrypt from "@/utils/security/xorDecrypt";
 
 export default function decryptObject(
   encryptedEntry: DiaryContent,

@@ -2,6 +2,7 @@
 
 import ConfirmationModal from "@/components/general/confirmationModal";
 import { useAuthContext } from "@/lib/context/authContext";
+import { useDiaryContext } from "@/lib/context/diaryContext";
 import DiaryBlock from "@/components/diary/diaryBlock";
 import getDiaries from "@/utils/db/diary/getDiaries";
 import { useEffect, useState } from "react";
@@ -10,6 +11,9 @@ import { useRouter } from "next/navigation";
 export default function Diaries() {
   const router = useRouter();
   const { user } = useAuthContext() as { user: any };
+  const { setCurrentDiaryId } = useDiaryContext() as {
+    setCurrentDiaryId: (newDiaryId: string | null) => void;
+  };
 
   const [diaries, setDiaries] = useState([] as any[]);
 
@@ -18,13 +22,15 @@ export default function Diaries() {
 
   const [modal, setModal] = useState(false);
 
-  const unlock = (diaryKey: string, password: string) => {
+  const unlock = (diaryKey: string, diaryId: string, password: string) => {
     setDiaryKey(diaryKey);
+    setCurrentDiaryId(diaryId);
     setPassword(password);
     setModal(true);
   };
 
-  const openDiary = (diaryKey: string) => {
+  const openDiary = (diaryKey: string, diaryId: string) => {
+    setCurrentDiaryId(diaryId);
     router.push(`/account/diaries/${diaryKey}`);
   };
 
@@ -51,6 +57,7 @@ export default function Diaries() {
             title={diary.name}
             description={diary.description}
             diaryKey={diary.key}
+            diaryId={diary.id}
             locked={diary.locked}
             password={diary.password}
             unlock={unlock}
