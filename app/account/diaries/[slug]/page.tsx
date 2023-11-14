@@ -25,7 +25,9 @@ import { useRouter } from "next/navigation";
 export default function Diaries({ params }: { params: { slug: string } }) {
   const router = useRouter();
   const { user } = useAuthContext() as { user: any };
-  const { currentDiaryId } = useDiaryContext() as { currentDiaryId: string | null };
+  const { currentDiaryId } = useDiaryContext() as {
+    currentDiaryId: string | null;
+  };
   const [key, setKey] = useState(params.slug.replace(/%20/g, " "));
 
   const [diaryEntries, setDiaryEntries] = useState([] as DiaryContent[]);
@@ -51,9 +53,9 @@ export default function Diaries({ params }: { params: { slug: string } }) {
 
   const [notification, setNotification] = useState(false);
   const [notificationTitle, setNotificationTitle] = useState("");
-  const [notificationType, setNotificationType] = useState<"success" | "error" | "warning">(
-    "success",
-  );
+  const [notificationType, setNotificationType] = useState<
+    "success" | "error" | "warning"
+  >("success");
   const [notificationMessage, setNotificationMessage] = useState("");
 
   const [modal, setModal] = useState(false);
@@ -433,120 +435,122 @@ export default function Diaries({ params }: { params: { slug: string } }) {
             </section>
           ) : null}
         </section>
-        <section className="mt-5 flex gap-2 justify-between">
+        <section className="mt-5 flex gap-2 justify-between max-xsl:flex-col">
           <Input
             type="text"
             placeholder={searchPlaceholder}
             value={searchValue}
             updateValue={setSearchValue}
           />
-          <div className="bg-light-background rounded-xl flex items-center justify-center px-3">
-            <button
-              className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
-                searchSettings[0] == 1 ? "bg-primary" : ""
-              }`}
-              onClick={() => selectSearchSettings(0)}
-            >
-              <svg
-                fill="#242423"
-                height="20px"
-                width="20px"
-                version="1.1"
-                id="Layer_1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                enable-background="new 0 0 512 512"
+          <div className="flex gap-2 justify-between">
+            <div className="bg-light-background rounded-xl flex items-center justify-center px-3 max-xsl:py-2 max-xsl:flex-1">
+              <button
+                className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
+                  searchSettings[0] == 1 ? "bg-primary" : ""
+                }`}
+                onClick={() => selectSearchSettings(0)}
               >
-                <path
-                  d="M46.5,0v139.6h23.3c0-23.3,0-69.8,23.3-93.1c23.2-23.3,46.5-23.3,69.8-23.3h46.5v395.6c0,34.9-11.6,69.8-46.5,69.8l-22.8,0
-	l-0.5,23.2h232.7v-23.3h-23.3c-34.9,0-46.5-34.9-46.5-69.8V23.3h46.5c23.3,0,46.5,0,69.8,23.3s23.3,69.8,23.3,93.1h23.3V0H46.5z"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="bg-light-background rounded-xl flex items-center justify-center px-3">
-            <button
-              className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
-                searchSettings[1] == 1 ? "bg-primary" : ""
-              }`}
-              onClick={() => selectSearchSettings(1)}
-            >
-              <svg
-                fill="#242423"
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                enable-background="new 0 0 24 24"
-              >
-                <path d="M2,19c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3v-8H2V19z M19,4h-2V3c0-0.6-0.4-1-1-1s-1,0.4-1,1v1H9V3c0-0.6-0.4-1-1-1S7,2.4,7,3v1H5C3.3,4,2,5.3,2,7v2h20V7C22,5.3,20.7,4,19,4z" />
-              </svg>
-            </button>
-          </div>
-          <div className="bg-light-background rounded-xl flex items-center justify-center px-3">
-            <button
-              className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
-                searchSettings[2] == 1 ? "bg-primary" : ""
-              }`}
-              onClick={() => selectSearchSettings(2)}
-            >
-              <svg
-                fill="#242423"
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                version="1.2"
-                baseProfile="tiny"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M9 4c1.279 0 2.559.488 3.535 1.465l3.465 3.535 5 5-7 7-5.498-5.498c-.037.033-3.037-2.967-3.037-2.967-1.953-1.953-1.953-5.119 0-7.07.976-.977 2.256-1.465 3.535-1.465m0-2c-1.87 0-3.628.729-4.949 2.051-1.322 1.32-2.051 3.078-2.051 4.948s.729 3.628 2.051 4.95l3 3c.107.107.227.201.35.279l5.187 5.186c.391.391.9.586 1.413.586s1.022-.195 1.414-.586l7-7c.78-.781.78-2.047 0-2.828l-5-5-3.45-3.521c-1.337-1.336-3.095-2.065-4.965-2.065zM9 7.498c.829 0 1.5.672 1.5 1.502s-.671 1.498-1.5 1.498-1.5-.668-1.5-1.498.671-1.502 1.5-1.502m0-1c-1.379 0-2.5 1.122-2.5 2.502 0 1.377 1.121 2.498 2.5 2.498s2.5-1.121 2.5-2.498c0-1.38-1.121-2.502-2.5-2.502z" />
-              </svg>
-            </button>
-          </div>
-          <div className="bg-light-background rounded-xl flex items-center justify-center px-3">
-            <button
-              className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
-                searchSettings[3] == 1 ? "bg-primary" : ""
-              }`}
-              onClick={() => selectSearchSettings(3)}
-            >
-              <svg
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-              >
-                <path
-                  stroke="#242423"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 8h14M5 12h14M5 16h6"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="bg-light-background rounded-xl flex items-center justify-center px-3">
-            <button
-              className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
-                entryOrderReversed ? "bg-primary" : ""
-              }`}
-              onClick={reverseEntryOrder}
-            >
-              <svg
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.293 4.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1-1.414 1.414L8 7.414V19a1 1 0 1 1-2 0V7.414L3.707 9.707a1 1 0 0 1-1.414-1.414l4-4zM16 16.586V5a1 1 0 1 1 2 0v11.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L16 16.586z"
+                <svg
                   fill="#242423"
-                />
-              </svg>
-            </button>
+                  height="20px"
+                  width="20px"
+                  version="1.1"
+                  id="Layer_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  enable-background="new 0 0 512 512"
+                >
+                  <path
+                    d="M46.5,0v139.6h23.3c0-23.3,0-69.8,23.3-93.1c23.2-23.3,46.5-23.3,69.8-23.3h46.5v395.6c0,34.9-11.6,69.8-46.5,69.8l-22.8,0
+	l-0.5,23.2h232.7v-23.3h-23.3c-34.9,0-46.5-34.9-46.5-69.8V23.3h46.5c23.3,0,46.5,0,69.8,23.3s23.3,69.8,23.3,93.1h23.3V0H46.5z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="bg-light-background rounded-xl flex items-center justify-center px-3 max-xsl:py-2 max-xsl:flex-1">
+              <button
+                className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
+                  searchSettings[1] == 1 ? "bg-primary" : ""
+                }`}
+                onClick={() => selectSearchSettings(1)}
+              >
+                <svg
+                  fill="#242423"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  enable-background="new 0 0 24 24"
+                >
+                  <path d="M2,19c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3v-8H2V19z M19,4h-2V3c0-0.6-0.4-1-1-1s-1,0.4-1,1v1H9V3c0-0.6-0.4-1-1-1S7,2.4,7,3v1H5C3.3,4,2,5.3,2,7v2h20V7C22,5.3,20.7,4,19,4z" />
+                </svg>
+              </button>
+            </div>
+            <div className="bg-light-background rounded-xl flex items-center justify-center px-3 max-xsl:py-2 max-xsl:flex-1">
+              <button
+                className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
+                  searchSettings[2] == 1 ? "bg-primary" : ""
+                }`}
+                onClick={() => selectSearchSettings(2)}
+              >
+                <svg
+                  fill="#242423"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  version="1.2"
+                  baseProfile="tiny"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M9 4c1.279 0 2.559.488 3.535 1.465l3.465 3.535 5 5-7 7-5.498-5.498c-.037.033-3.037-2.967-3.037-2.967-1.953-1.953-1.953-5.119 0-7.07.976-.977 2.256-1.465 3.535-1.465m0-2c-1.87 0-3.628.729-4.949 2.051-1.322 1.32-2.051 3.078-2.051 4.948s.729 3.628 2.051 4.95l3 3c.107.107.227.201.35.279l5.187 5.186c.391.391.9.586 1.413.586s1.022-.195 1.414-.586l7-7c.78-.781.78-2.047 0-2.828l-5-5-3.45-3.521c-1.337-1.336-3.095-2.065-4.965-2.065zM9 7.498c.829 0 1.5.672 1.5 1.502s-.671 1.498-1.5 1.498-1.5-.668-1.5-1.498.671-1.502 1.5-1.502m0-1c-1.379 0-2.5 1.122-2.5 2.502 0 1.377 1.121 2.498 2.5 2.498s2.5-1.121 2.5-2.498c0-1.38-1.121-2.502-2.5-2.502z" />
+                </svg>
+              </button>
+            </div>
+            <div className="bg-light-background rounded-xl flex items-center justify-center px-3 max-xsl:py-2 max-xsl:flex-1">
+              <button
+                className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
+                  searchSettings[3] == 1 ? "bg-primary" : ""
+                }`}
+                onClick={() => selectSearchSettings(3)}
+              >
+                <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                >
+                  <path
+                    stroke="#242423"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 8h14M5 12h14M5 16h6"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="bg-light-background rounded-xl flex items-center justify-center px-3 max-xsl:py-2 max-xsl:flex-1">
+              <button
+                className={`rounded-md hover:bg-opacity-50 transition-all p-1 ${
+                  entryOrderReversed ? "bg-primary" : ""
+                }`}
+                onClick={reverseEntryOrder}
+              >
+                <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.293 4.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1-1.414 1.414L8 7.414V19a1 1 0 1 1-2 0V7.414L3.707 9.707a1 1 0 0 1-1.414-1.414l4-4zM16 16.586V5a1 1 0 1 1 2 0v11.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L16 16.586z"
+                    fill="#242423"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </section>
       </section>

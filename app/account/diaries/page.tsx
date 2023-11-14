@@ -66,7 +66,7 @@ export default function Diaries() {
           />
         ))}
         <button
-          className="flex h-52 w-52 flex-col items-center rounded-3xl bg-light-background p-5 transition-all hover:outline hover:outline-1 hover:outline-primary"
+          className="flex h-52 w-52 flex-col items-center justify-center rounded-3xl bg-light-background p-5 transition-all hover:outline hover:outline-1 hover:outline-primary max-xs:w-full"
           onClick={() => router.push("/account/diaries/new")}
         >
           <h2 className="pb-2 text-center font-serif text-xl tracking-wider text-primary">

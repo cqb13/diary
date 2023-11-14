@@ -125,7 +125,7 @@ export default function NewDiary() {
             />
           </>
         )}
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 max-xs:flex-col">
           <Button title="Create Diary" onClick={handleDiaryCreation} />
           <Button
             title="Cancel"

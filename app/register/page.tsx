@@ -103,7 +103,7 @@ export default function Register() {
           vModel="password"
           updateValue={setPasswordConfirm}
         />
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 max-xs:flex-col">
           <Button title="Sign Up" onClick={signUpWithEmail} />
           <Button title="Sign Up With Google" onClick={signUpWithGoogle} />
         </div>

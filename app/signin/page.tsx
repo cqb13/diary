@@ -111,7 +111,7 @@ export default function SignIn() {
           vModel="password"
           updateValue={setPassword}
         />
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 max-xs:flex-col">
           <Button title="Sign In" onClick={signInWithEmail} />
           <Button title="Sign In With Google" onClick={signInWithGoogle} />
         </div>

@@ -12,7 +12,7 @@ export default function Home() {
         </header>
         <section className="flex h-[600px] flex-col gap-2 text-dark-text">
           <div className="flex h-4/6 gap-2 max-sm:flex-col">
-            <div className="flex h-full w-4/6 flex-col justify-end rounded-[60px] rounded-tr-none bg-white p-20 max-md:justify-center max-sm:w-full max-sm:rounded-tr-[60px]">
+            <div className="flex h-full w-4/6 flex-col justify-end rounded-[60px] rounded-tr-none bg-white p-20 max-md:justify-center max-sm:w-full max-sm:rounded-tr-[60px] max-xsl:p-10">
               <hr className="h-0.5 w-1/5 border-0 bg-dark-text max-md:hidden" />
               <p className="text-xl">
                 Unleash your inner thoughts and emotions in a secure and private
@@ -54,7 +54,7 @@ export default function Home() {
       </section>
       <section className="mt-40">
         <section className="grid-auto-rows-min-content min-h-min-content relative grid w-full flex-auto grid-cols-2 justify-center gap-5 overflow-visible p-0">
-          <div className="min-h-min-content z-1 relative col-span-2 flex w-full flex-auto transform flex-col items-start gap-10 self-center overflow-hidden rounded-[40px] bg-light-background p-10">
+          <div className="min-h-min-content z-1 relative col-span-2 flex w-full flex-auto transform flex-col items-start gap-10 self-center overflow-hidden rounded-[40px] bg-light-background p-10 max-sm:p-5">
             <div>
               <h3 className="font-serif text-4xl text-primary">Secure</h3>
               <p>Your privacy is our priority</p>
@@ -67,7 +67,7 @@ export default function Home() {
               className="pointer-events-none block h-80 w-full rounded-lg object-cover object-center grayscale rendering-auto max-mds:h-52"
             />
           </div>
-          <div className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2">
+          <div className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-md:col-span-2 max-sm:p-5">
             <div>
               <h3 className="font-serif text-4xl text-primary">Customizable</h3>
               <p>Personalize your diary</p>
@@ -77,10 +77,10 @@ export default function Home() {
               alt="aesthetic img 4"
               width={200}
               height={200}
-              className="pointer-events-none block h-52 w-full rounded-lg rounded-tl-[40px] object-cover object-center grayscale rendering-auto max-mds:rounded-tl-lg"
+              className="pointer-events-none block h-52 w-full rounded-lg rounded-tl-[40px] object-cover object-center grayscale rendering-auto max-md:rounded-tl-lg"
             />
           </div>
-          <div className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-mds:col-span-2">
+          <div className="flex flex-col gap-10 rounded-[40px] bg-light-background p-10 max-mds:relative max-md:col-span-2 max-sm:p-5">
             <div>
               <h3 className="font-serif text-4xl text-primary">Accessible</h3>
               <p>Access anytime, anywhere</p>
@@ -90,7 +90,7 @@ export default function Home() {
               alt="aesthetic img 5"
               width={200}
               height={200}
-              className="pointer-events-none block h-52 w-full rounded-lg rounded-tr-[40px] object-cover object-center grayscale rendering-auto max-mds:rounded-tr-lg"
+              className="pointer-events-none block h-52 w-full rounded-lg rounded-tr-[40px] object-cover object-center grayscale rendering-auto max-md:rounded-tr-lg"
             />
           </div>
         </section>
@@ -104,7 +104,6 @@ export default function Home() {
           </p>
           <LinkToRegister />
         </section>
-        <section></section>
         <section>
           <h1 className="mb-10 font-serif text-5xl">Common Questions</h1>
           <div className="flex gap-20 max-sm:flex-col max-sm:gap-10">

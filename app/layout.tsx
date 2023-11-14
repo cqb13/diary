@@ -88,12 +88,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex min-h-screen flex-col gap-5 bg-dark-background p-20 text-gray-200 max-sm:p-10 max-xs:p-5`}
+        className={`${inter.className} flex min-h-screen flex-col gap-5 bg-dark-background p-20 text-gray-200 max-xml:px-10 max-sm:p-1`}
       >
         <AuthContextProvider>
           <NavBar />
           <DiaryContextProvider>
-            <div className="m-auto w-9/12 flex-1 px-3 max-mdl:w-full">
+            <div className="m-auto w-9/12 flex-1 px-3 max-xml:w-11/12 max-mdl:w-full">
               {children}
             </div>
           </DiaryContextProvider>
