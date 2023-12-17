@@ -30,8 +30,49 @@ export default function NewDiary() {
   );
   const [notificationMessage, setNotificationMessage] = useState("");
 
+  const invalidCharacters = [
+    ".",
+    "#",
+    "$",
+    "/",
+    "[",
+    "]",
+    "@",
+    "%",
+    "&",
+    "*",
+    "+",
+    "=",
+    "{",
+    "}",
+    "?",
+    "<",
+    ">",
+    "/",
+    "\\",
+    "|",
+    "~",
+    "^",
+    "'",
+    '"',
+    "`",
+  ];
+
   const handleDiaryCreation = async () => {
     let usedName = name.trim();
+
+    for (let i = 0; i < invalidCharacters.length; i++) {
+      if (usedName.includes(invalidCharacters[i])) {
+        setNotification(true);
+        setNotificationTitle("Error");
+        setNotificationType("error");
+        setNotificationMessage(
+          `Diary name cannot contain the character '${invalidCharacters[i]}'.`,
+        );
+        return;
+      }
+    }
+
     if (usedName === "new") {
       setNotification(true);
       setNotificationTitle("Error");
